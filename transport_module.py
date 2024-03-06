@@ -12,12 +12,11 @@ class TransportModule:
         self.transport.protocol("WM_DELETE_WINDOW", self.cerrar_ventana)
         self.transport.resizable(False, False)
         
-        self.transport.geometry("880x600") ##Sujeto a cambios
-        
         self.widgets()
         
     def cerrar_ventana(self):
-        self.ventana.destroy()
+        self.ventana.deiconify()
+        self.transport.destroy()
     
     def mostrar_level_1(self):
         # Limpiar el frame derecho
@@ -208,10 +207,6 @@ class TransportModule:
                                 text_color="#EE7969",
                                 font=("Verdana", 30, "bold"),
                                 corner_radius=0,
-                                cursor="hand1")
+                                cursor="hand1",
+                                command=self.cerrar_ventana)
         boton_atras.pack(pady=10, fill="x")
-
-if __name__ == "__main__":
-    root = CTk()
-    app = TransportModule(root)
-    root.mainloop()

@@ -30,6 +30,7 @@ class App:
         
         self.widgets()
         self.app.mainloop()
+        
 
     #*############ FUNCTIONS ################
     def center_window(self, window, width , height):
@@ -66,7 +67,9 @@ class App:
             self.go_modules()
     
     def go_modules(self):
-        Modules(self.app, self.username)
+        self.app.withdraw()
+        modulos = Modules(self.app, self.username)
+        self.center_window(modulos.root, 800, 600)
     
     
     #*################## WIDGETSS ######################

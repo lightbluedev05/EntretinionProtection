@@ -1,17 +1,19 @@
 from customtkinter import *
 import mysql.connector
 from dotenv import load_dotenv
+from tkinter import messagebox
+from transport_module import TransportModule
 import os
 
 class Modules:
     def __init__(self, master, username):
         #$######## PANTALLA ############
-        self.root = CTkToplevel(master)
+        self.master = master
+        self.root = CTkToplevel(self.master)
         self.root.grab_set()
         
         self.root.config(bg="#FFFFFF")
-        self.root.geometry("500x500")
-        self.root.minsize(800, 600)
+        self.root.protocol("WM_DELETE_WINDOW", self.cerrar_ventana)
         
         #$########## BASE DE DATOS ############
         load_dotenv()
@@ -32,6 +34,11 @@ class Modules:
     
     
     #*############### FUNCTIONS ################
+    
+    def cerrar_ventana(self):
+        if messagebox.askokcancel("Salir", "¿Deseas salir del programa?"):
+            self.master.destroy()
+
     def get_points(self):
         cursor=self.conexion.cursor()
         cursor.execute(f"SELECT * FROM btibyrq3spz8nqhn2drh.users WHERE `username`= '{self.username}'")
@@ -48,6 +55,19 @@ class Modules:
         suma = int((p_1 + p_2 + p_3 + p_4)/5)
         
         return suma
+    
+    
+    def center_window(self, window, width , height):
+        ancho_pantalla = window.winfo_screenwidth()
+        alto_pantalla = window.winfo_screenheight()
+        x = (ancho_pantalla - width) // 2
+        y = (alto_pantalla - height) // 2
+        window.geometry(f"{width}x{height}+{x}+{y}")
+    
+    def go_transport(self):
+        self.root.withdraw()
+        transporte = TransportModule(self.root)
+        self.center_window(transporte.transport, 880, 600)
 
 
     #*################ WIDGETS ################
@@ -68,6 +88,7 @@ class Modules:
             text="Module 1",
             width=340,
             height=200,
+            command=self.go_transport
         )
         module_1.pack(pady=15, side="left", padx=30)
         
