@@ -50,14 +50,6 @@ class Modules:
         return suma
 
 
-    
-    """
-    transporte publico
-    calle
-    eventos
-    .....
-    """
-    
     #*################ WIDGETS ################
     def widgets(self):
         #$############# FRAME 1 ##################
@@ -139,11 +131,3 @@ class Modules:
         
         for i in range (self.get_points()):
             progress_bar.step()
-        
-
-
-if __name__ == "__main__":
-    username = "user"
-    root = CTk()
-    app = Modules(root, username)
-    root.mainloop()
