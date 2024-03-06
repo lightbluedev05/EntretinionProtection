@@ -3,6 +3,7 @@ import mysql.connector
 from dotenv import load_dotenv
 from tkinter import messagebox
 from transport_module import TransportModule
+from PIL import Image
 import os
 
 class Modules:
@@ -10,11 +11,20 @@ class Modules:
         #$######## PANTALLA ############
         self.master = master
         self.root = CTkToplevel(self.master)
+        self.root.title("Modelos")
         self.root.grab_set()
-        
-        self.root.config(bg="#FFFFFF")
+        self.root.geometry("800x670")
         self.root.protocol("WM_DELETE_WINDOW", self.cerrar_ventana)
         
+        #$########## COLORS ############
+        self.primary_color = "#A9D9D9"
+        self.secondary_color = "#5075BF"
+        self.third_color = "#8BA5D9"
+        self.fourth_color = "#1C418C"
+        self.fifth_color = ""
+
+        self.root.config(bg=self.primary_color)
+
         #$########## BASE DE DATOS ############
         load_dotenv()
         host=os.getenv("HOST")
@@ -29,10 +39,14 @@ class Modules:
         
         self.username = username
         
+        #*########### RES ##################
+        carpeta_principal = os.path.dirname(__file__)
+        self.carpeta_imagenes = os.path.join(carpeta_principal, "Imagenes")
+        
         self.widgets()
         
     
-    
+    #.
     #*############### FUNCTIONS ################
     
     def cerrar_ventana(self):
@@ -75,28 +89,36 @@ class Modules:
         #$############# FRAME 1 ##################
         frame_1 = CTkFrame(
             self.root,
-            fg_color="#FFFFFF",
-            bg_color="#FFFFFF",
+            fg_color=self.primary_color,
+            bg_color=self.primary_color,
         )
-        frame_1.pack(fill = 'x', pady=(15,0), expand=True)
+        frame_1.pack(fill = 'x', pady=(85,0), expand=True)
+        
+        person_image = CTkImage(Image.open(os.path.join(self.carpeta_imagenes, "Persona.png")), size=(150, 200))
         
         module_1 = CTkButton(
             frame_1,
             corner_radius=10,
-            bg_color="#FFFFFF",
-            fg_color="#444444",
-            text="Module 1",
+            bg_color=self.primary_color,
+            fg_color=self.third_color,
+            hover_color=self.fourth_color,
+            text="  En el\n  transporte\n  público",
+            font=("Arial", 27, "bold"),
             width=340,
             height=200,
-            command=self.go_transport
+            command=self.go_transport,
+            image=person_image,
+            compound="left",
+            anchor="w"
         )
         module_1.pack(pady=15, side="left", padx=30)
         
         module_2 = CTkButton(
             frame_1,
             corner_radius=10,
-            bg_color="#FFFFFF",
-            fg_color="#444444",
+            bg_color=self.primary_color,
+            fg_color=self.third_color,
+            hover_color=self.fourth_color,
             text="Module 2",
             width=340,
             height=200
@@ -106,16 +128,17 @@ class Modules:
         #$############# FRAME 2 ################
         frame_2 = CTkFrame(
             self.root,
-            fg_color="#FFFFFF",
-            bg_color="#FFFFFF",
+            fg_color=self.primary_color,
+            bg_color=self.primary_color,
         )
         frame_2.pack(fill = 'x', pady=(0,15), expand=True)
         
         module_3 = CTkButton(
             frame_2,
             corner_radius=10,
-            bg_color="#FFFFFF",
-            fg_color="#444444",
+            bg_color=self.primary_color,
+            fg_color=self.third_color,
+            hover_color=self.fourth_color,
             text="Module 3",
             width=340,
             height=200
@@ -125,8 +148,9 @@ class Modules:
         module_4 = CTkButton(
             frame_2,
             corner_radius=10,
-            bg_color="#FFFFFF",
-            fg_color="#444444",
+            bg_color=self.primary_color,
+            fg_color=self.third_color,
+            hover_color=self.fourth_color,
             text="Module 4",
             width=340,
             height=200
@@ -138,13 +162,13 @@ class Modules:
         #$############### PROGRESS BAR ############
         progress_bar = CTkProgressBar(
             self.root,
-            progress_color="blue",
-            border_color="#FFFFFF",
+            progress_color=self.secondary_color,
+            border_color=self.primary_color,
             corner_radius=50,
             height=20,
             width=500,
-            bg_color="#FFFFFF",
-            fg_color="#CCCCCC",
+            bg_color=self.primary_color,
+            fg_color="#FFFFFF",
             determinate_speed=6.25,
         )
         progress_bar.pack(pady=20)
@@ -152,3 +176,14 @@ class Modules:
         
         for i in range (self.get_points()):
             progress_bar.step()
+            
+if __name__ == "__main__":
+    root = CTk()
+    
+    username = "Miguel"
+    
+    root.geometry("800x600")
+    
+    Modules(root, username)
+    
+    root.mainloop()

@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 import os
 from modules import Modules
 
+#.
 class App:
     def __init__(self):
         self.app=CTk()
@@ -13,6 +14,13 @@ class App:
         self.center_window(self.app, 600, 580)
         self.app.resizable(False, False)
         
+        #$########## COLORS ############
+        self.primary_color = ""
+        self.secondary_color = ""
+        self.third_color = ""
+        self.fourth_color = ""
+        self.fifth_color = ""
+
         #$####### RES ROUTE ############
         carpeta_principal = os.path.dirname(__file__)
         self.carpeta_imagenes = os.path.join(carpeta_principal, "Imagenes")
@@ -27,6 +35,7 @@ class App:
             user=user,
             password=password,
         )
+
         
         self.widgets()
         self.app.mainloop()
