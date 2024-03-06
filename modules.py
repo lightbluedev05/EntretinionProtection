@@ -2,7 +2,6 @@ from customtkinter import *
 import mysql.connector
 from dotenv import load_dotenv
 import os
-from categories.transport_module import TransportModule
 
 class Modules:
     def __init__(self, master, username):
@@ -50,8 +49,7 @@ class Modules:
         
         return suma
 
-    def open_transport_module(self):
-        TransportModule(self.root)
+
     
     """
     transporte publico
@@ -78,7 +76,6 @@ class Modules:
             text="Module 1",
             width=340,
             height=200,
-            command=self.open_transport_module
         )
         module_1.pack(pady=15, side="left", padx=30)
         

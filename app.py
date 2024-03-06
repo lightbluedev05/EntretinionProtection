@@ -3,7 +3,16 @@ from PIL import Image
 from tkinter import messagebox
 from seguridad import Seguridad
 
-def centrar(ventana, ancho , alto):
+class App:
+    def __init__(self):
+        app=CTk()
+        app.title("App")
+        center_window(app, 600, 500)
+        app.resizable(False, False)
+        
+        #$####### FRAME 1 ########
+
+def center_window(ventana, ancho , alto):
     ancho_pantalla = ventana.winfo_screenwidth()
     alto_pantalla = ventana.winfo_screenheight()
     x = (ancho_pantalla - ancho) // 2
