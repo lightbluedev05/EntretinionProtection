@@ -23,13 +23,39 @@ class TransportModule:
         self.fourth_color = "#1C418C" #azul fuerte
         self.fifth_color = ""
         
+        # Inicialización de variables de nivel
+        self.enunciado = ""
+        self.opcion1 = ""
+        self.opcion2 = ""
+        self.opcion3 = ""
+        self.opcion4 = ""
+        self.nivel_actual = None
+        
         self.widgets()
         
     def cerrar_ventana(self):
         self.ventana.deiconify()
         self.transport.destroy()
-    
-    def mostrar_level_1(self):
+
+#*#-----------------------------------------------------------------------------------------------------------------------
+
+    def mostrar_level(self, enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, a, b, c , d):
+        # Asignar valores para el nivel 1
+        self.enunciado = enunciado
+        self.opcion1 = opcion1
+        self.consejo1 = consejo1
+        self.opcion2 = opcion2
+        self.consejo2 = consejo2
+        self.opcion3 = opcion3
+        self.consejo3 = consejo3
+        self.opcion4 = opcion4
+        self.consejo4 = consejo4
+        self.nivel_actual = nivel_actual
+        self.a = a
+        self.b = b
+        self.c = c
+        self.d = d
+        
         # Limpiar el frame derecho
         for widget in self.frame_derecho.winfo_children():
             widget.destroy()
@@ -42,7 +68,7 @@ class TransportModule:
         frame1.pack(padx=30, pady=15, fill="x")
         
         label_level = CTkLabel(frame1,
-                            text="Quedaste con un amigo en su casa, pero se te pasó la hora y ya es de noche. Tienes algo urgente que hacer en tu casa, así que tienes que volver rápido. ¿Qué ruta tomarías para llevar a cabo esta tarea de la forma más segura posible?",
+                            text=self.enunciado,
                             bg_color="#9bb1ff",
                             text_color="white",
                             font=("Arial", 24),
@@ -54,52 +80,68 @@ class TransportModule:
         frame2 = CTkFrame(self.frame_derecho, fg_color=self.primary_color)
         frame2.pack(fill="x")
         
-        boton_a = CTkButton(frame2,
-                            text="Tomaré un taxi\npara llegar a mi destino",
+        self.boton_a = CTkButton(frame2,
+                            text=self.opcion1,
                             bg_color=self.primary_color,
-                            text_color="white",
+                            fg_color=self.primary_color,
+                            text_color="black",
                             font=("Arial", 18),
                             width=280,
                             height=130,
                             anchor="center",
-                            command=lambda: self.actualizar_label("1"))
-        boton_a.pack(side="left", padx=(15,0))
+                            command=lambda: self.actualizar_label(self.consejo1, a, b , c, d),
+                            border_color="white",
+                            border_width=3,
+                            hover_color="#B8F25D")
+        self.boton_a.pack(side="left", padx=(15,0))
         
-        boton_b = CTkButton(frame2,
-                            text="Caminaré hasta la parada\nde buses más cercana",
+        self.boton_b = CTkButton(frame2,
+                            text=self.opcion2,
                             bg_color=self.primary_color,
-                            text_color="white",
+                            fg_color=self.primary_color,
+                            text_color="black",
                             font=("Arial", 18),
                             width=280,
                             height=130,
                             anchor="center",
-                            command=lambda: self.actualizar_label("2"))
-        boton_b.pack(side="right", padx=15)
+                            command=lambda: self.actualizar_label(self.consejo2, a, b, c, d),
+                            border_color="white",
+                            border_width=3,
+                            hover_color="#B8F25D")
+        self.boton_b.pack(side="right", padx=15)
         
         frame3 = CTkFrame(self.frame_derecho, fg_color=self.primary_color)
         frame3.pack(fill="x", pady=30)
 
-        boton_c = CTkButton(frame3,
-                            text="Le pedire a mi amigo que\nme acompañe hasta un lugar\nseguro donde pueda tomar un\ncolectivo",
+        self.boton_c = CTkButton(frame3,
+                            text=self.opcion3,
                             bg_color=self.primary_color,
-                            text_color="white",
+                            fg_color=self.primary_color,
+                            text_color="black",
                             font=("Arial", 18),
                             width=280,
                             height=130,
                             anchor="center",
-                            command=lambda: self.actualizar_label("3"))
-        boton_c.pack(side="left", padx=(15,0))
+                            command=lambda: self.actualizar_label(self.consejo3, a, b, c, d),
+                            border_color="white",
+                            border_width=3,
+                            hover_color="#B8F25D")
+        self.boton_c.pack(side="left", padx=(15,0))
 
-        boton_d = CTkButton(frame3,
-                            text="Usaré una aplicación de\ntaxi para que me\nlleve hasta mi casa",
+        self.boton_d = CTkButton(frame3,
+                            text=self.opcion4,
                             bg_color=self.primary_color,
-                            text_color="white",
+                            fg_color=self.primary_color,
+                            text_color="black",
                             font=("Arial", 18),
                             width=280,
                             height=130,
                             anchor="center",
-                            command=lambda: self.actualizar_label("4"))
-        boton_d.pack(side="right", padx=15)
+                            command=lambda: self.actualizar_label(self.consejo4, a, b, c, d),
+                            border_color="white",
+                            border_width=3,
+                            hover_color="#B8F25D")
+        self.boton_d.pack(side="right", padx=15)
 
         frame4 = CTkFrame(self.frame_derecho, fg_color=self.primary_color)
         frame4.pack(fill="x", side="bottom")
@@ -109,96 +151,131 @@ class TransportModule:
                                     bg_color=self.primary_color,
                                     text_color="white",
                                     font=("Arial", 20),
-                                    width=50)
-        self.label_texto.pack(pady=30, padx=30)
+                                    height=100)
+        self.label_texto.pack(fill="x", side="bottom")
 
+    def actualizar_label(self, texto, *botones):
+        
+        colores = {0: "#7CB679", 1: "#CCD06F", 2: "#D0726F"}
 
-    def actualizar_label(self, texto):
+        for i, boton in enumerate(botones, start=1):
+            color = colores.get(boton, "#7CB679")
+            
+            getattr(self, f"boton_{chr(96 + i)}").configure(
+                fg_color=color, hover_color=color, command=None
+            )
+
         self.label_texto.configure(text=texto)
+        
+        if self.nivel_actual == 6:
+            messagebox.showinfo("¡Felicidades!", "Haz completado el módulo.")
+        
+        if self.nivel_actual == 1:
+            self.boton_level1.configure(state="disabled", text=" Level 1")
+            self.boton_level2.configure(state="enabled", cursor="hand2", hover_color=self.fourth_color)
+        elif self.nivel_actual == 2:
+            self.boton_level2.configure(state="disabled", text=" Level 2")
+            self.boton_level3.configure(state="enabled", cursor="hand2", hover_color=self.fourth_color)
+        elif self.nivel_actual == 3:
+            self.boton_level3.configure(state="disabled", text=" Level 3")
+            self.boton_level4.configure(state="enabled", cursor="hand2", hover_color=self.fourth_color)
+        elif self.nivel_actual == 4:
+            self.boton_level4.configure(state="disabled", text=" Level 4")
+            self.boton_level5.configure(state="enabled", cursor="hand2", hover_color=self.fourth_color)
+        elif self.nivel_actual == 5:
+            self.boton_level5.configure(state="disabled", text=" Level 5")
+            self.boton_level6.configure(state="enabled", cursor="hand2", hover_color=self.fourth_color)
+        elif self.nivel_actual == 6:
+            self.boton_level6.configure(state="disabled", text=" Level 6")
+            self.ventana.deiconify()
+            self.transport.destroy()
 
-
+#*#-----------------------------------------------------------------------------------------------------------------------
+    def mostrar_level_1(self):
+        enunciado = "Quedaste con un amigo en su casa, pero se te pasó la hora y ya es de noche. Tienes algo urgente que hacer en tu casa, así que tienes que volver rápido. ¿Qué ruta tomarías para llevar a cabo esta tarea de la forma más segura posible?"
+        opcion1 = "Tomaré un taxi\npara llegar a mi destino"
+        consejo1 = "1"
+        opcion2 = "Caminaré hasta la parada\nde buses más cercana"
+        consejo2 = "2"
+        opcion3 = "Le pediré a mi amigo que\nme acompañe hasta un lugar\nseguro donde pueda tomar un\ncolectivo"
+        consejo3 = "3"
+        opcion4 = "Usaré una aplicación de\ntaxi para que me\nlleve hasta mi casa"
+        consejo4 = "4"
+        nivel_actual = 1
+        
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        
     def mostrar_level_2(self):
-        # Limpiar el frame derecho
-        for widget in self.frame_derecho.winfo_children():
-            widget.destroy()
+        enunciado = "Estás caminando por la calle cuando presencias un robo ocurriendo a poco menos de una cuadra de ti, estando tan cerca, ¿Qué deberías hacer?"
+        opcion1 = "Lo ignoraré y me\nalejaré del lugar."
+        consejo1 = "1"
+        opcion2 = "Trataré de ayudar."
+        consejo2 = "2"
+        opcion3 = "Gritaré por ayuda,\npero me mantendré\nlejos."
+        consejo3 = "3"
+        opcion4 = "Llamaré a la\npolicía/serenazgo, quizá\nellos puedan hacer algo."
+        consejo4 = "4"
+        nivel_actual = 2
         
-        frame1 = CTkFrame(self.frame_derecho,fg_color="#9bb1ff",
-                        corner_radius=20)
-        frame1.pack(padx=30, pady=30, fill="x")
-        
-        label_level = CTkLabel(frame1,
-                            text="¡LEVEL 2!",
-                            bg_color="#9bb1ff",
-                            text_color="white",
-                            font=("Arial", 40, "bold"))
-        label_level.pack(padx=10, pady=30)
-
-    # Repite el mismo patrón para los niveles restantes
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 1, 0, 2, 0)
 
     def mostrar_level_3(self):
-        # Limpiar el frame derecho
-        for widget in self.frame_derecho.winfo_children():
-            widget.destroy()
+        enunciado = "Es de día, pero te percatas de un pequeño grupo de personas que parece seguirte en tu recorrido ¿Qué harás?"
+        opcion1 = "Tomar un bus/colectivo/taxi\npara perderlos."
+        consejo1 = "1"
+        opcion2 = "Seguir caminando normalmente\n, es de día,\nno puede pasar nada malo."
+        consejo2 = "2"
+        opcion3 = "Caminar hasta una\nzona más segura\n(parque, comisaría, etc)."
+        consejo3 = "3"
+        opcion4 = "Darte la vuelta\ny confrontarlos."
+        consejo4 = "4"
+        nivel_actual = 3
         
-        frame1 = CTkFrame(self.frame_derecho,fg_color="#9bb1ff",
-                        corner_radius=20)
-        frame1.pack(padx=30, pady=30, fill="x")
-        
-        label_level = CTkLabel(frame1,
-                            text="¡LEVEL 3!",
-                            bg_color="#9bb1ff",
-                            text_color="white",
-                            font=("Arial", 40, "bold"))
-        label_level.pack(padx=10, pady=30)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
 
     def mostrar_level_4(self):
-        # Limpiar el frame derecho
-        for widget in self.frame_derecho.winfo_children():
-            widget.destroy()
+        enunciado = "Caminaste por un callejón y ahora te están robando, tienes pertenencias valiosas en tu mochila que no quieres perder, pero la situación es difícil para ti en este momento. ¿Qué harás?"
+        opcion1 = "Gritar y pedir por\nayuda a cualquier persona cerca."
+        consejo1 = "1"
+        opcion2 = "Tratar de huir lo\nmás rápido que puedas."
+        consejo2 = "2"
+        opcion3 = "Entregar todo lo que\ntengas por temor a algún\nacto de mayor violencia."
+        consejo3 = "3"
+        opcion4 = "Tratar de defenderte del robo."
+        consejo4 = "4"
+        nivel_actual = 4
         
-        frame1 = CTkFrame(self.frame_derecho,fg_color="#9bb1ff",
-                        corner_radius=20)
-        frame1.pack(padx=30, pady=30, fill="x")
-        
-        label_level = CTkLabel(frame1,
-                            text="¡LEVEL 4!",
-                            bg_color="#9bb1ff",
-                            text_color="white",
-                            font=("Arial", 40, "bold"))
-        label_level.pack(padx=10, pady=30)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
 
     def mostrar_level_5(self):
-        # Limpiar el frame derecho
-        for widget in self.frame_derecho.winfo_children():
-            widget.destroy()
+        enunciado = "Caminando por una calle, una persona, aparentemente ambulante, se acerca a ti insistiéndote en que le compres algo, tratas de ignorarlo, pero el individuo acelera su paso y ahora te insulta, ¿Qué harás?"
+        opcion1 = "Seguir ignorándolo esperando\nque pronto se cansará."
+        consejo1 = "1"
+        opcion2 = "Confrontarlo e insultarlo\ndevuelta."
+        consejo2 = "2"
+        opcion3 = "Acelerar el paso y tratar\nde ir a un lugar más seguro o\ncon más gente."
+        consejo3 = "3"
+        opcion4 = "Amenazarlo con llamar\nal serenazgo/policía."
+        consejo4 = "4"
+        nivel_actual = 5
         
-        frame1 = CTkFrame(self.frame_derecho,fg_color="#9bb1ff",
-                        corner_radius=20)
-        frame1.pack(padx=30, pady=30, fill="x")
-        
-        label_level = CTkLabel(frame1,
-                            text="¡LEVEL 5!",
-                            bg_color="#9bb1ff",
-                            text_color="white",
-                            font=("Arial", 40, "bold"))
-        label_level.pack(padx=10, pady=30)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
 
-    def mostrar_level_6(self):
-        # Limpiar el frame derecho
-        for widget in self.frame_derecho.winfo_children():
-            widget.destroy()
+    def mostrar_level_6(self):  
+        enunciado = "Mientras volvías a tu casa, una persona te para y te pide que le digas que hora es, para tu mala suerte, no sabes que hora es tampoco, y la única forma de hacerlo sería sacando tu celular para comprobarlo, pero, ante esta situación, ¿Qué harías?"
+        opcion1 = "Mentir con una hora falsa."
+        consejo1 = "1"
+        opcion2 = "Acceder al pedido y\ndarle la hora correcta\n(sacar tu celular para ello)."
+        consejo2 = "2"
+        opcion3 = "Tratar de persuadirlo\npara que te deje ir."
+        consejo3 = "3"
+        opcion4 = "Ignorarlo y seguir\ncon tu camino."
+        consejo4 = "4"
+        nivel_actual = 6
         
-        frame1 = CTkFrame(self.frame_derecho,fg_color="#9bb1ff",
-                        corner_radius=20)
-        frame1.pack(padx=30, pady=30, fill="x")
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+
         
-        label_level = CTkLabel(frame1,
-                            text="¡LEVEL 6!",
-                            bg_color="#9bb1ff",
-                            text_color="white",
-                            font=("Arial", 40, "bold"))
-        label_level.pack(padx=10, pady=30)
-    
     def widgets(self):
         
         carpeta_principal = os.path.dirname(__file__)
@@ -222,7 +299,7 @@ class TransportModule:
         
         
         # Crear botones Level del 1 al 6
-        boton_level1 = CTkButton(frame_izquierdo,
+        self.boton_level1 = CTkButton(frame_izquierdo,
                                 text=" Level 1",
                                 anchor="w",
                                 fg_color=self.third_color,
@@ -232,9 +309,9 @@ class TransportModule:
                                 cursor="hand2",
                                 command=self.mostrar_level_1,
                                 hover_color=self.fourth_color)
-        boton_level1.pack(pady=10, fill="x")
+        self.boton_level1.pack(pady=10, fill="x")
 
-        boton_level2 = CTkButton(frame_izquierdo,
+        self.boton_level2 = CTkButton(frame_izquierdo,
                                 text=" Level 2",
                                 anchor="w",
                                 fg_color=self.third_color,
@@ -244,9 +321,10 @@ class TransportModule:
                                 cursor="hand2",
                                 command=self.mostrar_level_2,
                                 hover_color=self.fourth_color)
-        boton_level2.pack(pady=10, fill="x")
+        self.boton_level2.pack(pady=10, fill="x")
+        self.boton_level2.configure(state="disabled")
 
-        boton_level3 = CTkButton(frame_izquierdo,
+        self.boton_level3 = CTkButton(frame_izquierdo,
                                 text=" Level 3",
                                 anchor="w",
                                 fg_color=self.third_color,
@@ -256,9 +334,10 @@ class TransportModule:
                                 cursor="hand2",
                                 command=self.mostrar_level_3,
                                 hover_color=self.fourth_color)
-        boton_level3.pack(pady=10, fill="x")
+        self.boton_level3.pack(pady=10, fill="x")
+        self.boton_level3.configure(state="disabled")
 
-        boton_level4 = CTkButton(frame_izquierdo,
+        self.boton_level4 = CTkButton(frame_izquierdo,
                                 text=" Level 4",
                                 anchor="w",
                                 fg_color=self.third_color,
@@ -268,9 +347,10 @@ class TransportModule:
                                 cursor="hand2",
                                 command=self.mostrar_level_4,
                                 hover_color=self.fourth_color)
-        boton_level4.pack(pady=10, fill="x")
+        self.boton_level4.pack(pady=10, fill="x")
+        self.boton_level4.configure(state="disabled")
 
-        boton_level5 = CTkButton(frame_izquierdo,
+        self.boton_level5 = CTkButton(frame_izquierdo,
                                 text=" Level 5",
                                 anchor="w",
                                 fg_color=self.third_color,
@@ -280,9 +360,10 @@ class TransportModule:
                                 cursor="hand2",
                                 command=self.mostrar_level_5,
                                 hover_color=self.fourth_color)
-        boton_level5.pack(pady=10, fill="x")
+        self.boton_level5.pack(pady=10, fill="x")
+        self.boton_level5.configure(state="disabled")
 
-        boton_level6 = CTkButton(frame_izquierdo,
+        self.boton_level6 = CTkButton(frame_izquierdo,
                                 text=" Level 6",
                                 anchor="w",
                                 fg_color=self.third_color,
@@ -292,7 +373,8 @@ class TransportModule:
                                 cursor="hand2",
                                 command=self.mostrar_level_6,
                                 hover_color=self.fourth_color)
-        boton_level6.pack(pady=10, fill="x")
+        self.boton_level6.pack(pady=10, fill="x")
+        self.boton_level6.configure(state="disabled")
 
         boton_atras = CTkButton(frame_izquierdo,
                                 text=" SALIR",
