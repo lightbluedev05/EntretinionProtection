@@ -51,8 +51,8 @@ class Netmodule:
         
 
     def cerrar_ventana(self):
-        self.ventana.deiconify()
         self.inter.destroy()
+        self.ventana.deiconify()
 
     def get_points(self):
         #$####### MYSQL CONNECTION ############
@@ -75,7 +75,7 @@ class Netmodule:
     
 #*#-----------------------------------------------------------------------------------------------------------------------
 
-    def mostrar_level(self, enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, a, b, c , d):
+    def mostrar_level(self, enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, nivel_actual, a, b, c):
         # Asignar valores para el nivel 1
         self.enunciado = enunciado
         self.opcion1 = opcion1
@@ -84,13 +84,10 @@ class Netmodule:
         self.consejo2 = consejo2
         self.opcion3 = opcion3
         self.consejo3 = consejo3
-        self.opcion4 = opcion4
-        self.consejo4 = consejo4
         self.nivel_actual = nivel_actual
         self.a = a
         self.b = b
         self.c = c
-        self.d = d
         
         # Limpiar el frame derecho
         for widget in self.frame_derecho.winfo_children():
@@ -107,7 +104,7 @@ class Netmodule:
                             text=self.enunciado,
                             bg_color="#9bb1ff",
                             text_color="white",
-                            font=("Arial", 24),
+                            font=("Arial", 19),
                             wraplength=530,
                             justify="center",
                             )
@@ -125,7 +122,7 @@ class Netmodule:
                             width=280,
                             height=130,
                             anchor="center",
-                            command=lambda: self.actualizar_label(self.consejo1, a, b , c, d),
+                            command=lambda: self.actualizar_label(self.consejo1, a, b , c),
                             border_color="white",
                             border_width=3,
                             hover_color="#B8F25D")
@@ -140,7 +137,7 @@ class Netmodule:
                             width=280,
                             height=130,
                             anchor="center",
-                            command=lambda: self.actualizar_label(self.consejo2, a, b, c, d),
+                            command=lambda: self.actualizar_label(self.consejo2, a, b, c),
                             border_color="white",
                             border_width=3,
                             hover_color="#B8F25D")
@@ -158,26 +155,11 @@ class Netmodule:
                             width=280,
                             height=130,
                             anchor="center",
-                            command=lambda: self.actualizar_label(self.consejo3, a, b, c, d),
+                            command=lambda: self.actualizar_label(self.consejo3, a, b, c),
                             border_color="white",
                             border_width=3,
                             hover_color="#B8F25D")
-        self.boton_c.pack(side="left", padx=(15,0))
-
-        self.boton_d = CTkButton(frame3,
-                            text=self.opcion4,
-                            bg_color=self.primary_color,
-                            fg_color=self.primary_color,
-                            text_color="black",
-                            font=("Arial", 18),
-                            width=280,
-                            height=130,
-                            anchor="center",
-                            command=lambda: self.actualizar_label(self.consejo4, a, b, c, d),
-                            border_color="white",
-                            border_width=3,
-                            hover_color="#B8F25D")
-        self.boton_d.pack(side="right", padx=15)
+        self.boton_c.pack(padx=15)
 
         frame4 = CTkFrame(self.frame_derecho, fg_color=self.primary_color)
         frame4.pack(fill="x", side="bottom")
@@ -237,88 +219,76 @@ class Netmodule:
 
 #*#-----------------------------------------------------------------------------------------------------------------------
     def mostrar_level_1(self):
-        enunciado = "Quedaste con un amigo en su casa, pero se te pasó la hora y ya es de noche. Tienes algo urgente que hacer en tu casa, así que tienes que volver rápido. ¿Qué ruta tomarías para llevar a cabo esta tarea de la forma más segura posible?"
-        opcion1 = "Tomaré un taxi\npara llegar a mi destino"
+        enunciado = "Imagina que estás revisando tu cuenta bancaria en línea y descubres que ha habido una serie de transacciones no autorizadas. Al investigar más a fondo, te das cuenta de que tu información personal, como tu número de tarjeta de crédito y tu contraseña, ha sido comprometida y utilizada para realizar compras fraudulentas en varios sitios web."
+        opcion1 = "Compartir tu información\npersonal y financiera en un\nsitio web no seguro que has\nencontrado en línea"
         consejo1 = "1"
-        opcion2 = "Caminaré hasta la parada\nde buses más cercana"
+        opcion2 = "Contactar inmediatamente a tu\nbanco para informarles sobre las\ntransacciones no autorizadas y\ncambiar tus contraseñas en todos\ntus cuentas en línea."
         consejo2 = "2"
-        opcion3 = "Le pediré a mi amigo que\nme acompañe hasta un lugar\nseguro donde pueda tomar un\ncolectivo"
+        opcion3 = "Informar a las autoridades competentes\nsobre el robo de información y presentar\nun informe policial, además de contactar\na las agencias de crédito para\ncongelar tus informes de crédito."
         consejo3 = "3"
-        opcion4 = "Usaré una aplicación de\ntaxi para que me\nlleve hasta mi casa"
-        consejo4 = "4"
         nivel_actual = 1
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, nivel_actual, 2, 1, 0)
         
     def mostrar_level_2(self):
-        enunciado = "Estás caminando por la calle cuando presencias un robo ocurriendo a poco menos de una cuadra de ti, estando tan cerca, ¿Qué deberías hacer?"
-        opcion1 = "Lo ignoraré y me\nalejaré del lugar."
+        enunciado = "Supongamos que has estado utilizando una red social popular y de repente comienzas a recibir mensajes insultantes y amenazantes de un usuario desconocido. A medida que pasan los días, el acoso se intensifica, con el usuario desconocido difundiendo rumores falsos sobre ti y publicando comentarios despectivos en tus publicaciones."
+        opcion1 = "Responder a los mensajes y\nconfrontar al acosador\npúblicamente en la plataforma\nde redes sociales"
         consejo1 = "1"
-        opcion2 = "Trataré de ayudar."
+        opcion2 = "Ignorar los mensajes y eliminar\nlas publicaciones ofensivas del\nacosador sin informar a\nnadie más sobre lo que\nestá sucediendo.."
         consejo2 = "1"
-        opcion3 = "Gritaré por ayuda,\npero me mantendré\nlejos."
+        opcion3 = "Bloquear al acosador, mantener evidencia\nde los mensajes y reportar el acoso a la\nplataforma de redes sociales y, si\nes necesario, a las autoridades."
         consejo3 = "1"
-        opcion4 = "Llamaré a la\npolicía/serenazgo, quizá\nellos puedan hacer algo."
-        consejo4 = "1"
         nivel_actual = 2
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 1, 0, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, nivel_actual, 2, 1, 0)
 
     def mostrar_level_3(self):
-        enunciado = "Es de día, pero te percatas de un pequeño grupo de personas que parece seguirte en tu recorrido ¿Qué harás?"
-        opcion1 = "Tomar un bus/colectivo/taxi\npara perderlos."
+        enunciado = "Digamos que estás navegando por Internet en tu computadora portátil y de repente notas un rendimiento más lento y extraño en el sistema. Después de realizar un escaneo antivirus, descubres que tu dispositivo ha sido infectado por un malware sofisticado que ha comprometido tus datos personales y financiados y ahora tus archivos importantes están cifrados y no puedes acceder a ellos."
+        opcion1 = " Ignorar la infección por\nmalware y continuar usando\ntu dispositivo normalmente.."
         consejo1 = "1"
-        opcion2 = "Seguir caminando normalmente\n, es de día,\nno puede pasar nada malo."
+        opcion2 = "Descargar software de eliminación\nde malware de un sitio web\nno verificado en un intento\nde eliminar el virus."
         consejo2 = "1"
-        opcion3 = "Caminar hasta una\nzona más segura\n(parque, comisaría, etc)."
+        opcion3 = "Utilizar un software antivirus confiable\npara escanear y eliminar el malware, además de\nactualizar tus sistemas operativos y software\nregularmente para mantener la seguridad\nde tus dispositivos."
         consejo3 = "1"
-        opcion4 = "Darte la vuelta\ny confrontarlos."
-        consejo4 = "1"
         nivel_actual = 3
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, nivel_actual, 2, 1, 0)
 
     def mostrar_level_4(self):
-        enunciado = "Caminaste por un callejón y ahora te están robando, tienes pertenencias valiosas en tu mochila que no quieres perder, pero la situación es difícil para ti en este momento. ¿Qué harás?"
-        opcion1 = "Gritar y pedir por\nayuda a cualquier persona cerca."
+        enunciado = "Imagina que descubres que alguien ha creado perfiles de redes sociales falsos utilizando tu nombre e información personal. Estos perfiles están siendo utilizados para difundir información falsa o inapropiada, lo que podría dañar tu reputación en línea."
+        opcion1 = " Publicar mensajes agresivos o confrontacionales en\nrespuesta a los perfiles\nfalsos."
         consejo1 = "1"
-        opcion2 = "Tratar de huir lo\nmás rápido que puedas."
+        opcion2 = "Informar a la plataforma de redes\nsociales sobre los perfiles falsos\ny solicitar su eliminación."
         consejo2 = "1"
-        opcion3 = "Entregar todo lo que\ntengas por temor a algún\nacto de mayor violencia."
+        opcion3 = "Cambiar tu configuración de\nprivacidad y ajustarla para limitar\nquién puede ver tu información\npersonal y publicaciones."
         consejo3 = "1"
-        opcion4 = "Tratar de defenderte del robo."
-        consejo4 = "1"
         nivel_actual = 4
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, nivel_actual, 0, 1, 2)
 
     def mostrar_level_5(self):
-        enunciado = "Caminando por una calle, una persona, aparentemente ambulante, se acerca a ti insistiéndote en que le compres algo, tratas de ignorarlo, pero el individuo acelera su paso y ahora te insulta, ¿Qué harás?"
-        opcion1 = "Seguir ignorándolo esperando\nque pronto se cansará."
+        enunciado = "Estás trabajando en tu computadora de trabajo cuando de repente aparece un mensaje en pantalla informándote de que tus archivos han sido cifrados y que debes pagar un rescate en criptomonedas para recuperar el acceso a ellos. Tu empresa se enfrenta a una grave amenaza de ransomware que pone en peligro la seguridad de sus datos."
+        opcion1 = "Pagar el rescate exigido por\nlos hackers para recuperar\nlos archivos cifrados."
         consejo1 = "1"
-        opcion2 = "Confrontarlo e insultarlo\ndevuelta."
+        opcion2 = "Apagar la computadora y no\ninformar a nadie sobre el\nataque de ransomware."
         consejo2 = "1"
-        opcion3 = "Acelerar el paso y tratar\nde ir a un lugar más seguro o\ncon más gente."
+        opcion3 = "Informar inmediatamente al departamento de\nTI de tu empresa sobre el ataque de ransomware\ny seguir sus instrucciones para mitigar el\ndaño y proteger los datos de la empresa."
         consejo3 = "1"
-        opcion4 = "Amenazarlo con llamar\nal serenazgo/policía."
-        consejo4 = "1"
         nivel_actual = 5
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, nivel_actual, 2, 1, 0)
 
     def mostrar_level_6(self):  
-        enunciado = "Mientras volvías a tu casa, una persona te para y te pide que le digas que hora es, para tu mala suerte, no sabes que hora es tampoco, y la única forma de hacerlo sería sacando tu celular para comprobarlo, pero, ante esta situación, ¿Qué harías?"
-        opcion1 = "Mentir con una hora falsa."
+        enunciado = "Recibes un mensaje directo en una red social de alguien que afirma ser un amigo tuyo y te pide que hagas clic en un enlace adjunto para ver una foto divertida. Sin embargo, al hacer clic en el enlace, descargas inadvertidamente malware en tu dispositivo, comprometiendo tu seguridad en línea."
+        opcion1 = "Compartir el enlace malicioso con\ntus amigos para que también\npuedan ver la foto divertida"
         consejo1 = "1"
-        opcion2 = "Acceder al pedido y\ndarle la hora correcta\n(sacar tu celular para ello)."
+        opcion2 = "Hacer clic en el enlace y\nproporcionar información adicional\nsolicitada por el remitente."
         consejo2 = "1"
-        opcion3 = "Tratar de persuadirlo\npara que te deje ir."
+        opcion3 = " Ignorar el mensaje y no hacer\nclic en el enlace, y luego informar a la\nred social sobre el intento de phishing\npara que puedan tomar\nmedidas preventivas. "
         consejo3 = "1"
-        opcion4 = "Ignorarlo y seguir\ncon tu camino."
-        consejo4 = "1"
         nivel_actual = 6
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, nivel_actual, 2, 1, 0)
 
         
     def widgets(self):
