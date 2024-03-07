@@ -41,7 +41,7 @@ class App:
         self.widgets()
         self.app.mainloop()
         
-
+#
     #*############ FUNCTIONS ################
     def center_window(self, window, width , height):
         ancho_pantalla = window.winfo_screenwidth()
@@ -78,8 +78,9 @@ class App:
     
     def go_modules(self):
         self.app.withdraw()
-        modulos = Modules(self.app, self.username, self.conexion)
+        modulos = Modules(self.app, self.username)
         self.center_window(modulos.root, 800, 740)
+        self.conexion.close()
     
     
     #*################## WIDGETSS ######################
