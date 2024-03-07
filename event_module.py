@@ -51,8 +51,8 @@ class Eventmodule:
         
 
     def cerrar_ventana(self):
-        self.ventana.deiconify()
         self.event.destroy()
+        self.ventana.deiconify()
 
     def get_points(self):
         #$####### MYSQL CONNECTION ############
@@ -237,88 +237,89 @@ class Eventmodule:
 
 #*#-----------------------------------------------------------------------------------------------------------------------
     def mostrar_level_1(self):
-        enunciado = "Quedaste con un amigo en su casa, pero se te pasó la hora y ya es de noche. Tienes algo urgente que hacer en tu casa, así que tienes que volver rápido. ¿Qué ruta tomarías para llevar a cabo esta tarea de la forma más segura posible?"
-        opcion1 = "Tomaré un taxi\npara llegar a mi destino"
+        enunciado = "Hay un concierto muy esperado por la ciudad al cual quieres asistir también. Cuando llegas al lugar, te das cuenta de que está repleto de personas por todas partes, todas emocionadas por ver el concierto tomar\ninicio. Asume que fuiste al concierto con una cantidad considerable de cosas importantes (teléfono, billetera, etc)¿Qué acciones tomarías durante la duración del concierto?"
+        opcion1 = "Prefiero seguir disfrutandolo\nnormalmente, es un evento\nque quiza lo vea una\nsola vez en la vida"
         consejo1 = "1"
-        opcion2 = "Caminaré hasta la parada\nde buses más cercana"
-        consejo2 = "2"
-        opcion3 = "Le pediré a mi amigo que\nme acompañe hasta un lugar\nseguro donde pueda tomar un\ncolectivo"
-        consejo3 = "3"
-        opcion4 = "Usaré una aplicación de\ntaxi para que me\nlleve hasta mi casa"
-        consejo4 = "4"
+        opcion2 = "Me alejare de las masas,\naunque no pueda ver tanto\na los cantantes en el escenario,\nsiento que será lo mejor para\nevitar un hurto."
+        consejo2 = "1"
+        opcion3 = "Llamaré a alguien de confianza,\nle dejaré mis cosas y trataré\nde convencerlo para que\nme recoja."
+        consejo3 = "1"
+        opcion4 = "Siento que es una mala idea,\nes una pena, pero creo que un\nconcierto es simplemente muy\npeligroso para mis pertenencias."
+        consejo4 = "1"
         nivel_actual = 1
         
         self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
-        
+
     def mostrar_level_2(self):
-        enunciado = "Estás caminando por la calle cuando presencias un robo ocurriendo a poco menos de una cuadra de ti, estando tan cerca, ¿Qué deberías hacer?"
-        opcion1 = "Lo ignoraré y me\nalejaré del lugar."
+        enunciado = "Fuiste invitado a una fiesta de cumpleaños de un conocido tuyo, sin embargo te enteraste de que el lugar donde será realizada la fiesta tiene fama de ser uno donde abundan las pandillas. Aún estas a tiempo de rechazar la oferta o planificar algo para el día de la fiesta en caso de que vayas.¿Que harás?"
+        opcion1 = "Es muy peligroso, prefiero\nprevenir que lamentar,\ndiré que estoy enfermo\no algo y no iré."
         consejo1 = "1"
-        opcion2 = "Trataré de ayudar."
+        opcion2 = "Este tipo de lugares\nson cosa común por aquí,\nes probable igual que\nno me pase nada, iré\ncomo si no fuera\nla gran cosa."
         consejo2 = "1"
-        opcion3 = "Gritaré por ayuda,\npero me mantendré\nlejos."
+        opcion3 = "Llamaré a un amigo para\nver si se anima a venir conmigo\n, es mejor estar acompañado\nque solo."
         consejo3 = "1"
-        opcion4 = "Llamaré a la\npolicía/serenazgo, quizá\nellos puedan hacer algo."
+        opcion4 = "NADA"
         consejo4 = "1"
         nivel_actual = 2
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 1, 0, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
 
     def mostrar_level_3(self):
-        enunciado = "Es de día, pero te percatas de un pequeño grupo de personas que parece seguirte en tu recorrido ¿Qué harás?"
-        opcion1 = "Tomar un bus/colectivo/taxi\npara perderlos."
+        enunciado = "Sales de un concierto, estando ya en una hora avanzada de la noche, y bastante lejos de casa, debes de plantearte la mejor forma de volver a tu casa sin sufrir un percance en el camino de vuelta, ¿Qué harías?"
+        opcion1 = "Llamas a un amigo\npara que te recoja."
         consejo1 = "1"
-        opcion2 = "Seguir caminando normalmente\n, es de día,\nno puede pasar nada malo."
+        opcion2 = "Pides un taxi\npara poder volver\na tu casa."
         consejo2 = "1"
-        opcion3 = "Caminar hasta una\nzona más segura\n(parque, comisaría, etc)."
+        opcion3 = "Pasaras la noche\nen un hotel cercano."
         consejo3 = "1"
-        opcion4 = "Darte la vuelta\ny confrontarlos."
+        opcion4 = "Tomas el riesgo y\ncaminas hasta la\nestación de buses\nmás cercana."
         consejo4 = "1"
         nivel_actual = 3
         
         self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
 
     def mostrar_level_4(self):
-        enunciado = "Caminaste por un callejón y ahora te están robando, tienes pertenencias valiosas en tu mochila que no quieres perder, pero la situación es difícil para ti en este momento. ¿Qué harás?"
-        opcion1 = "Gritar y pedir por\nayuda a cualquier persona cerca."
+        enunciado = "Te encuentras en una fiesta con unos amigos, es muy tarde y ha pasado ya bastante tiempo desde que inició, a este punto parece que la fiesta ya va a acabar.n En un momento se te acerca un grupo de personas invitando a tu grupo a ir a un lugar que conocen para seguir la fiesta. Tu grupo acepta la propuesta, pero esperan a lo que tengas que decir.¿Qué haces?"
+        opcion1 = "Aceptas la invitación\ny te unes a ellos."
         consejo1 = "1"
-        opcion2 = "Tratar de huir lo\nmás rápido que puedas."
+        opcion2 = "La rechazas, es muy\nriesgoso continuar así\na estas horas de\nla noche."
         consejo2 = "1"
-        opcion3 = "Entregar todo lo que\ntengas por temor a algún\nacto de mayor violencia."
+        opcion3 = "Los acompañas, pero\nsólo si un amigo tuyo\nse ofrece a acompañarte\nde vuelta a casa."
         consejo3 = "1"
-        opcion4 = "Tratar de defenderte del robo."
+        opcion4 = "Vas con ellos, pero\nte quedas solo un poco\ny te vas lo más\ntemprano que puedas."
         consejo4 = "1"
         nivel_actual = 4
         
         self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
 
     def mostrar_level_5(self):
-        enunciado = "Caminando por una calle, una persona, aparentemente ambulante, se acerca a ti insistiéndote en que le compres algo, tratas de ignorarlo, pero el individuo acelera su paso y ahora te insulta, ¿Qué harás?"
-        opcion1 = "Seguir ignorándolo esperando\nque pronto se cansará."
+        enunciado = "Un festival muy importante está a punto de ocurrir en tu ciudad, se prevee que mucha gente asistirá y que, por lo tanto, las calles estarán repletas de bandas musicales, grupos de artistas, y personas en general. Piensas asistir a este maravilloso evento local, pero te preocupa que seas víctima de un hurto o robo durante tu visita. ¿Qué medidas tomarías para poder disfrutar de este festival de forma segura sin perder la diversión que participar toma?"
+        opcion1 = "Prefiero no exponerme\nal más minimo peligro,\nasí que preferiré no ir."
         consejo1 = "1"
-        opcion2 = "Confrontarlo e insultarlo\ndevuelta."
+        opcion2 = "No podré comprar muchas\ncosas en el festival,\npero prefiero andar con\npoco dinero a que\nandar con mucho."
         consejo2 = "1"
-        opcion3 = "Acelerar el paso y tratar\nde ir a un lugar más seguro o\ncon más gente."
+        opcion3 = "Iré acompañado de alguien\n, así quizá las chances\nde que algo ocurra\ndisminuyan."
         consejo3 = "1"
-        opcion4 = "Amenazarlo con llamar\nal serenazgo/policía."
+        opcion4 = "Quiero comprar muchas cosas\n, pero para evitar u hurto\nevitare quedarme\nmucho tiempo en el festival."
         consejo4 = "1"
         nivel_actual = 5
         
         self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
 
     def mostrar_level_6(self):  
-        enunciado = "Mientras volvías a tu casa, una persona te para y te pide que le digas que hora es, para tu mala suerte, no sabes que hora es tampoco, y la única forma de hacerlo sería sacando tu celular para comprobarlo, pero, ante esta situación, ¿Qué harías?"
-        opcion1 = "Mentir con una hora falsa."
+        enunciado = "Durante tu visita a una feria local de la ciudad, lograste percartarte de que tu celular ya no estaba en tu bolsillo. Haciendo suposiciones, lo más probable es que fuiste víctima de un hurto, y que no fue hace mucho tiempo, quizá si actues bien seas capaz de recuperar tu celular. Pero, ¿Qué Haras?"
+        opcion1 = "Buscaré la ayuda de\nun agente de la\npolicía/serenazgo."
         consejo1 = "1"
-        opcion2 = "Acceder al pedido y\ndarle la hora correcta\n(sacar tu celular para ello)."
+        opcion2 = "Dudo que las autoridades\nme ayuden, trataré de\nbuscar al ladrón\nyo mismo."
         consejo2 = "1"
-        opcion3 = "Tratar de persuadirlo\npara que te deje ir."
+        opcion3 = "Lo hecho ya está hecho\n, no desperdiciaré mis\nenergías en una\npersecusión sin sentido."
         consejo3 = "1"
-        opcion4 = "Ignorarlo y seguir\ncon tu camino."
+        opcion4 = "Llamaré la atención de\nlas personas, quizá ellos\nme ayuden a encontrar\nal culpable."
         consejo4 = "1"
         nivel_actual = 6
         
         self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+
 
         
     def widgets(self):
@@ -338,7 +339,7 @@ class Eventmodule:
         frame_izquierdo.pack(side="left", fill="y")
         frame_izquierdo.pack_propagate(False)
         
-        imagen_autobus = CTkImage(Image.open(os.path.join(carpeta_imagenes, "digital.png")), size=(150, 130))
+        imagen_autobus = CTkImage(Image.open(os.path.join(carpeta_imagenes, "calendario.png")), size=(150, 130))
         label_autobus = CTkLabel(frame_izquierdo, image=imagen_autobus , text="", bg_color=self.third_color)
         label_autobus.pack(pady=(15,10), padx=5)
         
