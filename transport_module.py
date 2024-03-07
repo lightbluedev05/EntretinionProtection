@@ -27,6 +27,7 @@ class TransportModule:
             user=user,
             password=password,
         )
+        self.cursor = self.conexion.cursor()
         
         self.transport.geometry("880x600")
         
@@ -51,12 +52,12 @@ class TransportModule:
         
 
     def cerrar_ventana(self):
+        self.conexion.close()
         self.transport.destroy()
         self.ventana.deiconify()
-        self.conexion.close()
+        
 
     def get_points(self):
-        self.cursor = self.conexion.cursor()
         self.cursor.execute(f"SELECT `module1` FROM btibyrq3spz8nqhn2drh.users WHERE `username`= '{self.username}'")
         ver_points=[]
         for bd in self.cursor:
@@ -197,9 +198,7 @@ class TransportModule:
         
         if self.points < self.nivel_actual:
             
-            cursor = self.conexion.cursor()
-            
-            cursor.execute(f"UPDATE `btibyrq3spz8nqhn2drh`.`users` SET `module1` = '{self.nivel_actual}' WHERE (`username` = '{self.username}');")
+            self.cursor.execute(f"UPDATE `btibyrq3spz8nqhn2drh`.`users` SET `module1` = '{self.nivel_actual}' WHERE (`username` = '{self.username}');")
             self.conexion.commit()
         
         if self.points < 6:
