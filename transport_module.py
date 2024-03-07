@@ -39,61 +39,67 @@ class TransportModule:
                         border_width=5,
                         border_color="black",
                         )
-        frame1.pack(padx=30, pady=30, fill="x")
+        frame1.pack(padx=30, pady=15, fill="x")
         
         label_level = CTkLabel(frame1,
-                            text="¡LEVEL 1!",
+                            text="Quedaste con un amigo en su casa, pero se te pasó la hora y ya es de noche. Tienes algo urgente que hacer en tu casa, así que tienes que volver rápido. ¿Qué ruta tomarías para llevar a cabo esta tarea de la forma más segura posible?",
                             bg_color="#9bb1ff",
                             text_color="white",
-                            font=("Arial", 40, "bold"),
+                            font=("Arial", 24),
+                            wraplength=530,
+                            justify="center",
                             )
-        label_level.pack(padx=10, pady=30)
+        label_level.pack(padx=6, pady=6)
         
         frame2 = CTkFrame(self.frame_derecho, fg_color=self.primary_color)
         frame2.pack(fill="x")
         
-        boton_1 = CTkButton(frame2,
-                            text="1",
+        boton_a = CTkButton(frame2,
+                            text="Tomaré un taxi\npara llegar a mi destino",
                             bg_color=self.primary_color,
                             text_color="white",
-                            font=("Arial", 20),
-                            width=50,
+                            font=("Arial", 18),
+                            width=280,
+                            height=130,
                             anchor="center",
-                            command=lambda: self.actualizar_label("UNO"))
-        boton_1.pack(side="left", padx=30)
+                            command=lambda: self.actualizar_label("1"))
+        boton_a.pack(side="left", padx=(15,0))
         
-        boton_2 = CTkButton(frame2,
-                            text="2",
+        boton_b = CTkButton(frame2,
+                            text="Caminaré hasta la parada\nde buses más cercana",
                             bg_color=self.primary_color,
                             text_color="white",
-                            font=("Arial", 20),
-                            width=50,
+                            font=("Arial", 18),
+                            width=280,
+                            height=130,
                             anchor="center",
-                            command=lambda: self.actualizar_label("DOS"))
-        boton_2.pack(side="right", padx=30)
+                            command=lambda: self.actualizar_label("2"))
+        boton_b.pack(side="right", padx=15)
         
         frame3 = CTkFrame(self.frame_derecho, fg_color=self.primary_color)
         frame3.pack(fill="x", pady=30)
 
-        boton_3 = CTkButton(frame3,
-                            text="3",
+        boton_c = CTkButton(frame3,
+                            text="Le pedire a mi amigo que\nme acompañe hasta un lugar\nseguro donde pueda tomar un\ncolectivo",
                             bg_color=self.primary_color,
                             text_color="white",
-                            font=("Arial", 20),
-                            width=50,
+                            font=("Arial", 18),
+                            width=280,
+                            height=130,
                             anchor="center",
-                            command=lambda: self.actualizar_label("TRES"))
-        boton_3.pack(side="left", padx=30)
+                            command=lambda: self.actualizar_label("3"))
+        boton_c.pack(side="left", padx=(15,0))
 
-        boton_4 = CTkButton(frame3,
-                            text="4",
+        boton_d = CTkButton(frame3,
+                            text="Usaré una aplicación de\ntaxi para que me\nlleve hasta mi casa",
                             bg_color=self.primary_color,
                             text_color="white",
-                            font=("Arial", 20),
-                            width=50,
+                            font=("Arial", 18),
+                            width=280,
+                            height=130,
                             anchor="center",
-                            command=lambda: self.actualizar_label("CUATRO"))
-        boton_4.pack(side="right", padx=30)
+                            command=lambda: self.actualizar_label("4"))
+        boton_d.pack(side="right", padx=15)
 
         frame4 = CTkFrame(self.frame_derecho, fg_color=self.primary_color)
         frame4.pack(fill="x", side="bottom")
@@ -105,6 +111,7 @@ class TransportModule:
                                     font=("Arial", 20),
                                     width=50)
         self.label_texto.pack(pady=30, padx=30)
+
 
     def actualizar_label(self, texto):
         self.label_texto.configure(text=texto)
@@ -209,9 +216,9 @@ class TransportModule:
         frame_izquierdo.pack(side="left", fill="y")
         frame_izquierdo.pack_propagate(False)
         
-        imagen_persona = CTkImage(Image.open(os.path.join(carpeta_imagenes, "Persona.png")), size=(100, 140))
-        label_persona = CTkLabel(frame_izquierdo, image=imagen_persona , text="", bg_color=self.third_color)
-        label_persona.pack(pady=(15,10), padx=5)
+        imagen_autobus = CTkImage(Image.open(os.path.join(carpeta_imagenes, "autobus.png")), size=(150, 130))
+        label_autobus = CTkLabel(frame_izquierdo, image=imagen_autobus , text="", bg_color=self.third_color)
+        label_autobus.pack(pady=(15,10), padx=5)
         
         
         # Crear botones Level del 1 al 6
@@ -307,6 +314,4 @@ if __name__ == "__main__":
     trans = TransportModule(root)
     
     
-    
     root.mainloop()
-    
