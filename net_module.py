@@ -5,7 +5,7 @@ import os
 import mysql.connector
 from dotenv import load_dotenv
 
-#.
+#..
 class Netmodule:
     def __init__(self, ventana, username):
         self.ventana = ventana
@@ -27,6 +27,7 @@ class Netmodule:
             user=user,
             password=password,
         )
+        self.cursor = self.conexion.cursor()
         
         self.inter.geometry("880x600")
         
@@ -51,21 +52,11 @@ class Netmodule:
         
 
     def cerrar_ventana(self):
+        self.conexion.close()
         self.inter.destroy()
         self.ventana.deiconify()
 
     def get_points(self):
-        #$####### MYSQL CONNECTION ############
-        load_dotenv()
-        self.host=os.getenv("HOST")
-        self.user=os.getenv("USER")
-        self.password=os.getenv("PASSWORD")
-        self.conexion = mysql.connector.connect(
-            host=self.host,
-            user=self.user,
-            password=self.password,
-        )
-        self.cursor = self.conexion.cursor()
         self.cursor.execute(f"SELECT `module4` FROM btibyrq3spz8nqhn2drh.users WHERE `username`= '{self.username}'")
         ver_points=[]
         for bd in self.cursor:
@@ -187,10 +178,7 @@ class Netmodule:
         
         
         if self.points < self.nivel_actual:
-            
-            cursor = self.conexion.cursor()
-            
-            cursor.execute(f"UPDATE `btibyrq3spz8nqhn2drh`.`users` SET `module4` = '{self.nivel_actual}' WHERE (`username` = '{self.username}');")
+            self.cursor.execute(f"UPDATE `btibyrq3spz8nqhn2drh`.`users` SET `module4` = '{self.nivel_actual}' WHERE (`username` = '{self.username}');")
             self.conexion.commit()
             
         if self.points < 6:

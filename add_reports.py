@@ -21,16 +21,7 @@ class AddReport:
         
         self.root.config(bg=self.fifth_color)
         
-        #$####### MYSQL CONNECTION ############
-        load_dotenv()
-        host=os.getenv("HOST")
-        user=os.getenv("USER")
-        password=os.getenv("PASSWORD")
-        self.conexion = mysql.connector.connect(
-            host=host,
-            user=user,
-            password=password,
-        )
+        
         
         self.widgets()
     
@@ -44,6 +35,18 @@ class AddReport:
         window.geometry(f"{width}x{height}+{x}+{y}")
     
     def add_report(self):
+        
+        #$####### MYSQL CONNECTION ############
+        load_dotenv()
+        host=os.getenv("HOST")
+        user=os.getenv("USER")
+        password=os.getenv("PASSWORD")
+        conexion = mysql.connector.connect(
+            host=host,
+            user=user,
+            password=password,
+        )
+        
         name = self.name_entry.get().strip()
         place = self.place_entry.get().strip()
         date = self.date_entry.get().strip()
@@ -51,17 +54,19 @@ class AddReport:
         
         if name == "" or place == "" or date == "" or report == "":
             mb.showerror("Error", "Todos los campos son obligatorios")
+            conexion.close()
             return
 
         try:
-            cursor = self.conexion.cursor()
+            cursor = conexion.cursor()
             cursor.execute(f"INSERT INTO btibyrq3spz8nqhn2drh.reports (`reporter`, `place`, `date`, `report`) VALUES ('{name}', '{place}', '{date}', '{report}')")
-            self.conexion.commit()
+            conexion.commit()
             mb.showinfo("Exito", "Reporte registrado con exito")
+            conexion.close()
             self.root.destroy()
         except:
+            conexion.close()
             mb.showerror("Error", "No se ha podido registrar el reporte en la red")    
-            
     
     
     

@@ -27,6 +27,7 @@ class CalleModule:
             user=user,
             password=password,
         )
+        self.cursor = self.conexion.cursor()
         
         self.call.geometry("880x600")
         
@@ -49,15 +50,14 @@ class CalleModule:
         
         self.widgets()
         
-
+#
     def cerrar_ventana(self):
+        self.conexion.close()
         self.call.destroy()
         self.ventana.deiconify()
-        self.conexion.close()
         
 
     def get_points(self):
-        self.cursor = self.conexion.cursor()
         self.cursor.execute(f"SELECT `module3` FROM btibyrq3spz8nqhn2drh.users WHERE `username`= '{self.username}'")
         ver_points=[]
         for bd in self.cursor:
@@ -198,9 +198,7 @@ class CalleModule:
         
         if self.points < self.nivel_actual:
             
-            cursor = self.conexion.cursor()
-            
-            cursor.execute(f"UPDATE `btibyrq3spz8nqhn2drh`.`users` SET `module3` = '{self.nivel_actual}' WHERE (`username` = '{self.username}');")
+            self.cursor.execute(f"UPDATE `btibyrq3spz8nqhn2drh`.`users` SET `module3` = '{self.nivel_actual}' WHERE (`username` = '{self.username}');")
             self.conexion.commit()
         
         if self.points < 6:
