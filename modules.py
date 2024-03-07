@@ -1,19 +1,18 @@
 from customtkinter import *
 import mysql.connector
-from dotenv import load_dotenv
 from tkinter import messagebox
 from transport_module import TransportModule
 from PIL import Image
 import os
 
 class Modules:
-    def __init__(self, master, username):
+    def __init__(self, master, username, conexion):
         #$######## PANTALLA ############
         self.master = master
         self.root = CTkToplevel(self.master)
         self.root.title("Modelos")
         self.root.grab_set()
-        self.root.geometry("800x670")
+        self.root.minsize(800, 740)
         self.root.protocol("WM_DELETE_WINDOW", self.cerrar_ventana)
         
         #$########## COLORS ############
@@ -26,16 +25,7 @@ class Modules:
         self.root.config(bg=self.primary_color)
 
         #$########## BASE DE DATOS ############
-        load_dotenv()
-        host=os.getenv("HOST")
-        user=os.getenv("USER")
-        password=os.getenv("PASSWORD")
-        
-        self.conexion = mysql.connector.connect(
-            host=host,
-            user=user,
-            password=password,
-        )
+        self.conexion = conexion
         
         self.username = username
         
@@ -66,7 +56,7 @@ class Modules:
         p_3=data[0][4]
         p_4=data[0][5]
         
-        suma = int((p_1 + p_2 + p_3 + p_4)/5)
+        suma = int((p_1 + p_2 + p_3 + p_4)/3)
         
         return suma
     
@@ -86,15 +76,32 @@ class Modules:
 
     #*################ WIDGETS ################
     def widgets(self):
+        autobus_image = CTkImage(Image.open(os.path.join(self.carpeta_imagenes, "autobus.png")), size=(150, 150))
+        calendario_image = CTkImage(Image.open(os.path.join(self.carpeta_imagenes, "calendario.png")), size=(150, 150))
+        parque_image = CTkImage(Image.open(os.path.join(self.carpeta_imagenes, "parque.png")), size=(150, 150))
+        digital_image =CTkImage(Image.open(os.path.join(self.carpeta_imagenes, "digital.png")), size=(150, 150))
+        
+        title_label = CTkLabel(
+            self.root,
+            text=f"Hola {self.username}, completa los módulos de\naprendizaje ante situaciones de peligro :)",
+            font=("Arial", 30, "bold"),
+            fg_color=self.secondary_color,
+            bg_color=self.primary_color,
+            width=680,
+            height=100,
+            text_color="white",
+            corner_radius=40
+        )
+        title_label.pack(pady=(30,20))
+        
         #$############# FRAME 1 ##################
         frame_1 = CTkFrame(
             self.root,
             fg_color=self.primary_color,
             bg_color=self.primary_color,
         )
-        frame_1.pack(fill = 'x', pady=(85,0), expand=True)
+        frame_1.pack(fill = 'x', pady=(10,0), expand=True)
         
-        person_image = CTkImage(Image.open(os.path.join(self.carpeta_imagenes, "Persona.png")), size=(150, 200))
         
         module_1 = CTkButton(
             frame_1,
@@ -107,7 +114,7 @@ class Modules:
             width=340,
             height=200,
             command=self.go_transport,
-            image=person_image,
+            image=autobus_image,
             compound="left",
             anchor="w"
         )
@@ -119,9 +126,11 @@ class Modules:
             bg_color=self.primary_color,
             fg_color=self.third_color,
             hover_color=self.fourth_color,
-            text="Module 2",
+            text="En algun\nevento\n o fiesta",
+            font=("Arial", 27, "bold"),
             width=340,
-            height=200
+            height=200,
+            image=calendario_image,
         )
         module_2.pack(pady=15, side="right", padx=30)
         
@@ -139,9 +148,11 @@ class Modules:
             bg_color=self.primary_color,
             fg_color=self.third_color,
             hover_color=self.fourth_color,
-            text="Module 3",
+            text="En las\ncalles de\nla ciudad",
+            font=("Arial", 27, "bold"),
             width=340,
-            height=200
+            height=200,
+            image=parque_image
         )
         module_3.pack(pady=15, side="left", padx=30)
         
@@ -151,15 +162,27 @@ class Modules:
             bg_color=self.primary_color,
             fg_color=self.third_color,
             hover_color=self.fourth_color,
-            text="Module 4",
+            text="Con las\nnuevas\ntecnologias",
+            font=("Arial", 27, "bold"),
             width=340,
-            height=200
+            height=200,
+            image=digital_image
         )
-        module_4.pack(pady=15, side="right", padx=30)
+        module_4.pack(pady=(15,5), side="right", padx=30)
         
         
         
         #$############### PROGRESS BAR ############
+        title_bar = CTkLabel(
+            self.root,
+            text="Tu progreso <3",
+            font=("Arial", 20, "bold"),
+            fg_color=self.primary_color,
+            text_color="white",
+            bg_color=self.primary_color,
+        )
+        title_bar.pack(pady=(20,10))
+        
         progress_bar = CTkProgressBar(
             self.root,
             progress_color=self.secondary_color,
@@ -171,19 +194,14 @@ class Modules:
             fg_color="#FFFFFF",
             determinate_speed=6.25,
         )
-        progress_bar.pack(pady=20)
+        progress_bar.pack(pady=(0,20))
         progress_bar.set(0)
         
         for i in range (self.get_points()):
             progress_bar.step()
             
-if __name__ == "__main__":
-    root = CTk()
-    
-    username = "Miguel"
-    
-    root.geometry("800x600")
-    
+"""if __name__ == "__main__":
+    root=CTk()
+    username="Miguel"
     Modules(root, username)
-    
-    root.mainloop()
+    root.mainloop()"""
