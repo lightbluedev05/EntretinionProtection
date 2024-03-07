@@ -11,15 +11,17 @@ class App:
     def __init__(self):
         self.app=CTk()
         self.app.title("App")
-        self.center_window(self.app, 600, 580)
+        self.center_window(self.app, 600, 680)
         self.app.resizable(False, False)
         
         #$########## COLORS ############
-        self.primary_color = ""
-        self.secondary_color = ""
-        self.third_color = ""
-        self.fourth_color = ""
-        self.fifth_color = ""
+        self.primary_color = "#A9D9D9"
+        self.secondary_color = "#5075BF"
+        self.third_color = "#8BA5D9"
+        self.fourth_color = "#1C418C"
+        self.fifth_color = "#81A5A5"
+        
+        self.app.config(bg=self.fifth_color)
 
         #$####### RES ROUTE ############
         carpeta_principal = os.path.dirname(__file__)
@@ -35,7 +37,6 @@ class App:
             user=user,
             password=password,
         )
-
         
         self.widgets()
         self.app.mainloop()
@@ -77,55 +78,85 @@ class App:
     
     def go_modules(self):
         self.app.withdraw()
-        modulos = Modules(self.app, self.username)
-        self.center_window(modulos.root, 800, 600)
+        modulos = Modules(self.app, self.username, self.conexion)
+        self.center_window(modulos.root, 800, 740)
     
     
     #*################## WIDGETSS ######################
     def widgets(self):
         person_image = CTkImage(Image.open(os.path.join(self.carpeta_imagenes, "Persona.png")), size=(150, 200))
-    
-        label_person_image= CTkLabel(
+
+        frame_all = CTkFrame(
             self.app,
+            fg_color=self.primary_color,
+            corner_radius=30,
+            bg_color=self.fifth_color
+        )
+        frame_all.pack(pady=30, padx=30, fill="both", expand=True)
+        
+        label_person_image= CTkLabel(
+            frame_all,
             image=person_image,
-            text=""
+            text="",
+            fg_color=self.primary_color
         )
         label_person_image.pack(pady=30)
         
         label_person_text = CTkLabel(
-            self.app,
+            frame_all,
             text="Hola, ¿Cómo te llamas?\n¿Quiéres acompañarme?",
-            font=("Arial", 35)
+            font=("Arial", 35, "bold"),
+            fg_color=self.primary_color,
+            text_color=self.fourth_color
         )
         label_person_text.pack()
         
         self.user_entry = CTkEntry(
-            self.app,
+            frame_all,
             placeholder_text="    Me llamo...",
+            placeholder_text_color="#DDDDDD",
             font=("Arial", 25),
             text_color="white",
             width=200,
-            height=50
+            height=50,
+            bg_color=self.primary_color,
+            fg_color=self.secondary_color,
+            border_color="white"
         )
         self.user_entry.pack(pady=(20,0))
         
         self.password_entry = CTkEntry(
-            self.app,
+            frame_all,
             placeholder_text="    Contraseña",
+            placeholder_text_color="#DDDDDD",
             font=("Arial", 25),
             text_color="white",
             width=200,
-            height=50
+            height=50,
+            bg_color=self.primary_color,
+            fg_color=self.secondary_color,
+            border_color="white"
         )
-        self.password_entry.pack(pady=(15,30))
+        self.password_entry.pack(pady=(15,15))
+        
+        self.label_info = CTkLabel(
+            frame_all,
+            text="Ingresa tus credenciales...\nSi eres nuevo se creara una cuenta",
+            font=("Arial", 10, "bold"),
+            fg_color=self.primary_color,
+            bg_color=self.primary_color,
+            text_color="#000000"
+        )
+        self.label_info.pack(pady=(3,15))
         
         button = CTkButton(
-            self.app,
+            frame_all,
             text="Claro...",
             font=("Arial", 25),
             width=100,
             height=50,
-            command=self.log_reg
+            command=self.log_reg,
+            bg_color=self.primary_color
         )
         button.pack()
     
