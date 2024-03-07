@@ -38,6 +38,7 @@ class Modules:
             user=user,
             password=password,
         )
+        self.cursor = self.conexion.cursor()
         
         self.username = username
         
@@ -53,14 +54,14 @@ class Modules:
     
     def cerrar_ventana(self):
         if messagebox.askokcancel("Salir", "¿Deseas salir del programa?"):
+            self.conexion.close()
             self.master.destroy()
 
     def get_points(self):
-        cursor=self.conexion.cursor()
-        cursor.execute(f"SELECT * FROM btibyrq3spz8nqhn2drh.users WHERE `username`= '{self.username}'")
+        self.cursor.execute(f"SELECT * FROM btibyrq3spz8nqhn2drh.users WHERE `username`= '{self.username}'")
         
         data=[]
-        for bd in cursor:
+        for bd in self.cursor:
             data.append(bd)
 
         p_1=data[0][2]
