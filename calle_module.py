@@ -6,14 +6,14 @@ import mysql.connector
 from dotenv import load_dotenv
 
 #.
-class TransportModule:
-    def __init__(self, ventana, username):
+class CalleModule:
+    def __init__(self, ventana,username):
         self.ventana = ventana
-        self.transport = CTkToplevel(self.ventana)
-        self.transport.title("App")
-        self.transport.config(bg="#bfd7ff")
-        self.transport.protocol("WM_DELETE_WINDOW", self.cerrar_ventana)
-        self.transport.resizable(False, False)
+        self.call = CTkToplevel(self.ventana)
+        self.call.title("App")
+        self.call.config(bg="#bfd7ff")
+        self.call.protocol("WM_DELETE_WINDOW", self.cerrar_ventana)
+        self.call.resizable(False, False)
         
         self.username = username
         
@@ -28,7 +28,7 @@ class TransportModule:
             password=password,
         )
         
-        self.transport.geometry("880x600")
+        self.call.geometry("880x600")
         
         
         self.primary_color = "#A9D9D9" #verde clarito
@@ -52,7 +52,7 @@ class TransportModule:
 
     def cerrar_ventana(self):
         self.ventana.deiconify()
-        self.transport.destroy()
+        self.call.destroy()
 
     def get_points(self):
         #$####### MYSQL CONNECTION ############
@@ -66,7 +66,7 @@ class TransportModule:
             password=self.password,
         )
         self.cursor = self.conexion.cursor()
-        self.cursor.execute(f"SELECT `module1` FROM btibyrq3spz8nqhn2drh.users WHERE `username`= '{self.username}'")
+        self.cursor.execute(f"SELECT `module3` FROM btibyrq3spz8nqhn2drh.users WHERE `username`= '{self.username}'")
         ver_points=[]
         for bd in self.cursor:
             ver_points.append(bd[0])
@@ -208,7 +208,7 @@ class TransportModule:
             
             cursor = self.conexion.cursor()
             
-            cursor.execute(f"UPDATE `btibyrq3spz8nqhn2drh`.`users` SET `module1` = '{self.nivel_actual}' WHERE (`username` = '{self.username}');")
+            cursor.execute(f"UPDATE `btibyrq3spz8nqhn2drh`.`users` SET `module3` = '{self.nivel_actual}' WHERE (`username` = '{self.username}');")
             self.conexion.commit()
         
         if self.points < 6:
@@ -233,7 +233,7 @@ class TransportModule:
             elif self.nivel_actual == 6:
                 self.boton_level6.configure(state="disabled", text=" Level 6")
                 self.ventana.deiconify()
-                self.transport.destroy()
+                self.call.destroy()
 
 #*#-----------------------------------------------------------------------------------------------------------------------
     def mostrar_level_1(self):
@@ -327,14 +327,14 @@ class TransportModule:
         carpeta_imagenes = os.path.join(carpeta_principal, "Imagenes")
 
         
-        frame_derecho = CTkFrame(self.transport, width=640, fg_color=self.primary_color, corner_radius=0)
+        frame_derecho = CTkFrame(self.call, width=640, fg_color=self.primary_color, corner_radius=0)
         frame_derecho.pack(side="right", fill="both", expand=True)
         frame_derecho.pack_propagate(False)
         
         
         self.frame_derecho = frame_derecho  # Guardar referencia al frame derecho
         
-        frame_izquierdo = CTkFrame(self.transport, fg_color=self.third_color, corner_radius=0, width=240)
+        frame_izquierdo = CTkFrame(self.call, fg_color=self.third_color, corner_radius=0, width=240)
         frame_izquierdo.pack(side="left", fill="y")
         frame_izquierdo.pack_propagate(False)
         
@@ -473,14 +473,12 @@ class TransportModule:
             self.boton_level6.configure(state="enabled", cursor="hand2")
             
 
-
-
 if __name__ == "__main__":
     root = CTk()
     
-    username = "Miguel"
+    username = "Nashe"
     
-    trans = TransportModule(root)
+    trans = CalleModule(root)
     
     
     root.mainloop()

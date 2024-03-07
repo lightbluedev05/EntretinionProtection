@@ -2,6 +2,9 @@ from customtkinter import *
 import mysql.connector
 from tkinter import messagebox
 from transport_module import TransportModule
+from event_module import Eventmodule
+from calle_module import CalleModule
+from net_module import Netmodule
 from PIL import Image
 import os
 
@@ -70,8 +73,23 @@ class Modules:
     
     def go_transport(self):
         self.root.withdraw()
-        transporte = TransportModule(self.root)
+        transporte = TransportModule(self.root, self.username)
         self.center_window(transporte.transport, 880, 600)
+    
+    def go_event(self):
+        self.root.withdraw()
+        evento = Eventmodule(self.root, self.username)
+        self.center_window(evento.event, 880, 600)
+
+    def go_calle(self):
+        self.root.withdraw()
+        calle = CalleModule(self.root, self.username)
+        self.center_window(calle.call, 880, 600)
+        
+    def go_net(self):
+        self.root.withdraw()
+        inter = Netmodule(self.root, self.username)
+        self.center_window(inter.inter, 880, 600)
 
 
     #*################ WIDGETS ################
@@ -131,6 +149,7 @@ class Modules:
             width=340,
             height=200,
             image=calendario_image,
+            command=self.go_event,
         )
         module_2.pack(pady=15, side="right", padx=30)
         
@@ -152,7 +171,8 @@ class Modules:
             font=("Arial", 27, "bold"),
             width=340,
             height=200,
-            image=parque_image
+            image=parque_image,
+            command=self.go_calle,
         )
         module_3.pack(pady=15, side="left", padx=30)
         
@@ -166,7 +186,8 @@ class Modules:
             font=("Arial", 27, "bold"),
             width=340,
             height=200,
-            image=digital_image
+            image=digital_image,
+            command=self.go_net,
         )
         module_4.pack(pady=(15,5), side="right", padx=30)
         
