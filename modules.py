@@ -7,15 +7,16 @@ from calle_module import CalleModule
 from net_module import Netmodule
 from PIL import Image
 import os
+from dotenv import load_dotenv
 
 class Modules:
-    def __init__(self, master, username, conexion):
+    def __init__(self, master, username):
         #$######## PANTALLA ############
         self.master = master
         self.root = CTkToplevel(self.master)
         self.root.title("Modelos")
         self.root.grab_set()
-        self.root.minsize(800, 740)
+        self.root.minsize(800, 770)
         self.root.protocol("WM_DELETE_WINDOW", self.cerrar_ventana)
         
         #$########## COLORS ############
@@ -27,8 +28,16 @@ class Modules:
 
         self.root.config(bg=self.primary_color)
 
-        #$########## BASE DE DATOS ############
-        self.conexion = conexion
+        #$####### MYSQL CONNECTION ############
+        load_dotenv()
+        host=os.getenv("HOST")
+        user=os.getenv("USER")
+        password=os.getenv("PASSWORD")
+        self.conexion = mysql.connector.connect(
+            host=host,
+            user=user,
+            password=password,
+        )
         
         self.username = username
         
@@ -62,6 +71,11 @@ class Modules:
         suma = int((p_1 + p_2 + p_3 + p_4)/3)
         
         return suma
+    
+    
+    def update_progress(self):
+        for i in range (self.get_points()):
+            self.progress_bar.step()
     
     
     def center_window(self, window, width , height):
@@ -191,8 +205,6 @@ class Modules:
         )
         module_4.pack(pady=(15,5), side="right", padx=30)
         
-        
-        
         #$############### PROGRESS BAR ############
         title_bar = CTkLabel(
             self.root,
@@ -204,22 +216,40 @@ class Modules:
         )
         title_bar.pack(pady=(20,10))
         
-        progress_bar = CTkProgressBar(
+        progress_frame = CTkFrame(
             self.root,
+            fg_color=self.primary_color,
+            bg_color=self.primary_color
+        )
+        progress_frame.pack(pady=(0,20))
+        
+        self.progress_bar = CTkProgressBar(
+            progress_frame,
             progress_color=self.secondary_color,
             border_color=self.primary_color,
             corner_radius=50,
             height=20,
-            width=500,
+            width=400,
             bg_color=self.primary_color,
             fg_color="#FFFFFF",
             determinate_speed=6.25,
         )
-        progress_bar.pack(pady=(0,20))
-        progress_bar.set(0)
+        self.progress_bar.pack(pady=(0,20), side="left")
+        self.progress_bar.set(0)
+        
+        refresh_button = CTkButton(
+            progress_frame,
+            text="Actualizar",
+            font=("Arial", 20, "bold"),
+            fg_color=self.primary_color,
+            bg_color=self.primary_color,
+            text_color="white",
+            command=self.update_progress,
+        )
+        refresh_button.pack(side="right")
         
         for i in range (self.get_points()):
-            progress_bar.step()
+            self.progress_bar.step()
             
 """if __name__ == "__main__":
     root=CTk()

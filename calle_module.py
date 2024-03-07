@@ -51,20 +51,12 @@ class CalleModule:
         
 
     def cerrar_ventana(self):
-        self.ventana.deiconify()
         self.call.destroy()
+        self.ventana.deiconify()
+        self.conexion.close()
+        
 
     def get_points(self):
-        #$####### MYSQL CONNECTION ############
-        load_dotenv()
-        self.host=os.getenv("HOST")
-        self.user=os.getenv("USER")
-        self.password=os.getenv("PASSWORD")
-        self.conexion = mysql.connector.connect(
-            host=self.host,
-            user=self.user,
-            password=self.password,
-        )
         self.cursor = self.conexion.cursor()
         self.cursor.execute(f"SELECT `module3` FROM btibyrq3spz8nqhn2drh.users WHERE `username`= '{self.username}'")
         ver_points=[]
