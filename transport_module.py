@@ -2,6 +2,8 @@ from tkinter import messagebox
 from customtkinter import *
 from PIL import Image
 import os
+import mysql.connector
+from dotenv import load_dotenv
 
 #.
 class TransportModule:
@@ -13,6 +15,18 @@ class TransportModule:
         self.transport.protocol("WM_DELETE_WINDOW", self.cerrar_ventana)
         self.transport.resizable(False, False)
         
+        self.username = "Miguel"
+        
+        #$####### MYSQL CONNECTION ############
+        load_dotenv()
+        host=os.getenv("HOST")
+        user=os.getenv("USER")
+        password=os.getenv("PASSWORD")
+        self.conexion = mysql.connector.connect(
+            host=host,
+            user=user,
+            password=password,
+        )
         
         self.transport.geometry("880x600")
         
@@ -31,12 +45,34 @@ class TransportModule:
         self.opcion4 = ""
         self.nivel_actual = None
         
+        self.get_points()
+        
         self.widgets()
         
+
     def cerrar_ventana(self):
         self.ventana.deiconify()
         self.transport.destroy()
 
+    def get_points(self):
+        #$####### MYSQL CONNECTION ############
+        load_dotenv()
+        self.host=os.getenv("HOST")
+        self.user=os.getenv("USER")
+        self.password=os.getenv("PASSWORD")
+        self.conexion = mysql.connector.connect(
+            host=self.host,
+            user=self.user,
+            password=self.password,
+        )
+        self.cursor = self.conexion.cursor()
+        self.cursor.execute(f"SELECT `module1` FROM btibyrq3spz8nqhn2drh.users WHERE `username`= '{self.username}'")
+        ver_points=[]
+        for bd in self.cursor:
+            ver_points.append(bd[0])
+        self.points=ver_points[0]
+        print(self.points)
+    
 #*#-----------------------------------------------------------------------------------------------------------------------
 
     def mostrar_level(self, enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, a, b, c , d):
@@ -167,6 +203,14 @@ class TransportModule:
 
         self.label_texto.configure(text=texto)
         
+        
+        if self.points < self.nivel_actual:
+            
+            cursor = self.conexion.cursor()
+            
+            cursor.execute(f"UPDATE `btibyrq3spz8nqhn2drh`.`users` SET `module1` = '{self.nivel_actual}' WHERE (`username` = '{self.username}');")
+            self.conexion.commit()
+        
         if self.nivel_actual == 6:
             messagebox.showinfo("¡Felicidades!", "Haz completado el módulo.")
         
@@ -210,11 +254,11 @@ class TransportModule:
         opcion1 = "Lo ignoraré y me\nalejaré del lugar."
         consejo1 = "1"
         opcion2 = "Trataré de ayudar."
-        consejo2 = "2"
+        consejo2 = "1"
         opcion3 = "Gritaré por ayuda,\npero me mantendré\nlejos."
-        consejo3 = "3"
+        consejo3 = "1"
         opcion4 = "Llamaré a la\npolicía/serenazgo, quizá\nellos puedan hacer algo."
-        consejo4 = "4"
+        consejo4 = "1"
         nivel_actual = 2
         
         self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 1, 0, 2, 0)
@@ -224,11 +268,11 @@ class TransportModule:
         opcion1 = "Tomar un bus/colectivo/taxi\npara perderlos."
         consejo1 = "1"
         opcion2 = "Seguir caminando normalmente\n, es de día,\nno puede pasar nada malo."
-        consejo2 = "2"
+        consejo2 = "1"
         opcion3 = "Caminar hasta una\nzona más segura\n(parque, comisaría, etc)."
-        consejo3 = "3"
+        consejo3 = "1"
         opcion4 = "Darte la vuelta\ny confrontarlos."
-        consejo4 = "4"
+        consejo4 = "1"
         nivel_actual = 3
         
         self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
@@ -238,11 +282,11 @@ class TransportModule:
         opcion1 = "Gritar y pedir por\nayuda a cualquier persona cerca."
         consejo1 = "1"
         opcion2 = "Tratar de huir lo\nmás rápido que puedas."
-        consejo2 = "2"
+        consejo2 = "1"
         opcion3 = "Entregar todo lo que\ntengas por temor a algún\nacto de mayor violencia."
-        consejo3 = "3"
+        consejo3 = "1"
         opcion4 = "Tratar de defenderte del robo."
-        consejo4 = "4"
+        consejo4 = "1"
         nivel_actual = 4
         
         self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
@@ -252,11 +296,11 @@ class TransportModule:
         opcion1 = "Seguir ignorándolo esperando\nque pronto se cansará."
         consejo1 = "1"
         opcion2 = "Confrontarlo e insultarlo\ndevuelta."
-        consejo2 = "2"
+        consejo2 = "1"
         opcion3 = "Acelerar el paso y tratar\nde ir a un lugar más seguro o\ncon más gente."
-        consejo3 = "3"
+        consejo3 = "1"
         opcion4 = "Amenazarlo con llamar\nal serenazgo/policía."
-        consejo4 = "4"
+        consejo4 = "1"
         nivel_actual = 5
         
         self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
@@ -266,11 +310,11 @@ class TransportModule:
         opcion1 = "Mentir con una hora falsa."
         consejo1 = "1"
         opcion2 = "Acceder al pedido y\ndarle la hora correcta\n(sacar tu celular para ello)."
-        consejo2 = "2"
+        consejo2 = "1"
         opcion3 = "Tratar de persuadirlo\npara que te deje ir."
-        consejo3 = "3"
+        consejo3 = "1"
         opcion4 = "Ignorarlo y seguir\ncon tu camino."
-        consejo4 = "4"
+        consejo4 = "1"
         nivel_actual = 6
         
         self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
@@ -310,7 +354,7 @@ class TransportModule:
                                 command=self.mostrar_level_1,
                                 hover_color=self.fourth_color)
         self.boton_level1.pack(pady=10, fill="x")
-
+        
         self.boton_level2 = CTkButton(frame_izquierdo,
                                 text=" Level 2",
                                 anchor="w",
@@ -322,7 +366,6 @@ class TransportModule:
                                 command=self.mostrar_level_2,
                                 hover_color=self.fourth_color)
         self.boton_level2.pack(pady=10, fill="x")
-        self.boton_level2.configure(state="disabled")
 
         self.boton_level3 = CTkButton(frame_izquierdo,
                                 text=" Level 3",
@@ -335,7 +378,6 @@ class TransportModule:
                                 command=self.mostrar_level_3,
                                 hover_color=self.fourth_color)
         self.boton_level3.pack(pady=10, fill="x")
-        self.boton_level3.configure(state="disabled")
 
         self.boton_level4 = CTkButton(frame_izquierdo,
                                 text=" Level 4",
@@ -348,7 +390,6 @@ class TransportModule:
                                 command=self.mostrar_level_4,
                                 hover_color=self.fourth_color)
         self.boton_level4.pack(pady=10, fill="x")
-        self.boton_level4.configure(state="disabled")
 
         self.boton_level5 = CTkButton(frame_izquierdo,
                                 text=" Level 5",
@@ -361,7 +402,6 @@ class TransportModule:
                                 command=self.mostrar_level_5,
                                 hover_color=self.fourth_color)
         self.boton_level5.pack(pady=10, fill="x")
-        self.boton_level5.configure(state="disabled")
 
         self.boton_level6 = CTkButton(frame_izquierdo,
                                 text=" Level 6",
@@ -374,7 +414,6 @@ class TransportModule:
                                 command=self.mostrar_level_6,
                                 hover_color=self.fourth_color)
         self.boton_level6.pack(pady=10, fill="x")
-        self.boton_level6.configure(state="disabled")
 
         boton_atras = CTkButton(frame_izquierdo,
                                 text=" SALIR",
@@ -388,6 +427,46 @@ class TransportModule:
                                 hover_color="#D94A4A")
         boton_atras.pack(pady=10, fill="x")
         
+        if self.points ==0:
+            self.boton_level2.configure(state="disabled")
+            self.boton_level3.configure(state="disabled")
+            self.boton_level4.configure(state="disabled")
+            self.boton_level5.configure(state="disabled")
+            self.boton_level6.configure(state="disabled")
+        elif self.points == 1:
+            self.boton_level1.configure(state="disabled")
+            self.boton_level3.configure(state="disabled")
+            self.boton_level4.configure(state="disabled")
+            self.boton_level5.configure(state="disabled")
+            self.boton_level6.configure(state="disabled")
+        elif self.points == 2:
+            self.boton_level1.configure(state="disabled")
+            self.boton_level2.configure(state="disabled")
+            self.boton_level4.configure(state="disabled")
+            self.boton_level5.configure(state="disabled")
+            self.boton_level6.configure(state="disabled")
+        elif self.points == 3:
+            self.boton_level1.configure(state="disabled")
+            self.boton_level2.configure(state="disabled")
+            self.boton_level3.configure(state="disabled")
+            self.boton_level5.configure(state="disabled")
+            self.boton_level6.configure(state="disabled")
+        elif self.points == 4:
+            self.boton_level1.configure(state="disabled")
+            self.boton_level2.configure(state="disabled")
+            self.boton_level3.configure(state="disabled")
+            self.boton_level4.configure(state="disabled")
+            self.boton_level6.configure(state="disabled")
+        elif self.points == 5:
+            self.boton_level1.configure(state="disabled")
+            self.boton_level2.configure(state="disabled")
+            self.boton_level3.configure(state="disabled")
+            self.boton_level4.configure(state="disabled")
+            self.boton_level5.configure(state="disabled")
+            
+
+
+
 if __name__ == "__main__":
     root = CTk()
     
