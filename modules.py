@@ -7,7 +7,6 @@ from calle_module import CalleModule
 from net_module import Netmodule
 from PIL import Image
 import os
-from dotenv import load_dotenv
 from reports import Reports
 
 class Modules:
@@ -30,10 +29,9 @@ class Modules:
         self.root.config(bg=self.primary_color)
 
         #$####### MYSQL CONNECTION ############
-        load_dotenv()
-        host=os.getenv("HOST")
-        user=os.getenv("USER")
-        password=os.getenv("PASSWORD")
+        host="btibyrq3spz8nqhn2drh-mysql.services.clever-cloud.com"
+        user="uklu2xhrdmj6v1w9"
+        password="n9N3OZ7LHYaH6D7VFYqZ"
         self.conexion = mysql.connector.connect(
             host=host,
             user=user,
@@ -74,10 +72,9 @@ class Modules:
     
     def update_progress(self):
         #$####### MYSQL CONNECTION ############
-        load_dotenv()
-        host=os.getenv("HOST")
-        user=os.getenv("USER")
-        password=os.getenv("PASSWORD")
+        host="btibyrq3spz8nqhn2drh-mysql.services.clever-cloud.com"
+        user="uklu2xhrdmj6v1w9"
+        password="n9N3OZ7LHYaH6D7VFYqZ"
         conexion = mysql.connector.connect(
             host=host,
             user=user,
