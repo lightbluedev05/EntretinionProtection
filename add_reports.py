@@ -1,6 +1,4 @@
 from customtkinter import *
-from dotenv import load_dotenv
-import os
 from tkinter import messagebox as mb
 import mysql.connector
 
@@ -37,10 +35,9 @@ class AddReport:
     def add_report(self):
         
         #$####### MYSQL CONNECTION ############
-        load_dotenv()
-        host=os.getenv("HOST")
-        user=os.getenv("USER")
-        password=os.getenv("PASSWORD")
+        host="btibyrq3spz8nqhn2drh-mysql.services.clever-cloud.com"
+        user="uklu2xhrdmj6v1w9"
+        password="n9N3OZ7LHYaH6D7VFYqZ"
         conexion = mysql.connector.connect(
             host=host,
             user=user,

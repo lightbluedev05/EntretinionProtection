@@ -22,10 +22,9 @@ class Reports:
         self.app.config(bg=self.fifth_color)
         
         #$####### MYSQL CONNECTION ############
-        load_dotenv()
-        self.host=os.getenv("HOST")
-        self.user=os.getenv("USER")
-        self.password=os.getenv("PASSWORD")
+        self.host="btibyrq3spz8nqhn2drh-mysql.services.clever-cloud.com"
+        self.user="uklu2xhrdmj6v1w9"
+        self.password="n9N3OZ7LHYaH6D7VFYqZ"
         self.conexion = mysql.connector.connect(
             host=self.host,
             user=self.user,
