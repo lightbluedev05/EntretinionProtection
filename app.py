@@ -160,6 +160,7 @@ class App:
             bg_color=self.primary_color
         )
         button.pack()
+        
     
     
 if __name__ == "__main__":

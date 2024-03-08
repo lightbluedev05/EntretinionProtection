@@ -4,7 +4,7 @@ import os
 import mysql.connector
 from add_reports import AddReport
 
-class App:
+class Reports:
     def __init__(self, master):
         self.app=CTkToplevel(master)
         self.app.title("App")
@@ -113,7 +113,7 @@ class App:
                 justify="left"
             )
             report_text.pack(pady=(0,10))
-        
+        conexion.close()
         self.app.after(200, self.app.update_idletasks)
     
     
@@ -234,10 +234,11 @@ class App:
                 justify="left"
             )
             report_text.pack(pady=(0,10))
+        self.conexion.close()
 
 
 
 if __name__ == "__main__":
     root = CTk()
-    App(root)
+    Reports(root)
     root.mainloop()

@@ -8,6 +8,7 @@ from net_module import Netmodule
 from PIL import Image
 import os
 from dotenv import load_dotenv
+from reports import Reports
 
 class Modules:
     def __init__(self, master, username):
@@ -48,13 +49,11 @@ class Modules:
         
         self.widgets()
         
-    
-    #.
+
     #*############### FUNCTIONS ################
     
     def cerrar_ventana(self):
         if messagebox.askokcancel("Salir", "¿Deseas salir del programa?"):
-            self.conexion.close()
             self.master.destroy()
 
     def get_points(self):
@@ -70,13 +69,41 @@ class Modules:
         p_4=data[0][5]
         
         suma = int((p_1 + p_2 + p_3 + p_4)/3)
-        
+        self.conexion.close()
         return suma
     
-    
     def update_progress(self):
-        for i in range (self.get_points()):
+        #$####### MYSQL CONNECTION ############
+        load_dotenv()
+        host=os.getenv("HOST")
+        user=os.getenv("USER")
+        password=os.getenv("PASSWORD")
+        conexion = mysql.connector.connect(
+            host=host,
+            user=user,
+            password=password,
+        )
+        cursor = conexion.cursor()
+        
+        cursor.execute(f"SELECT * FROM btibyrq3spz8nqhn2drh.users WHERE `username`= '{self.username}'")
+        
+        data=[]
+        for bd in cursor:
+            data.append(bd)
+        
+        p_1=data[0][2]
+        p_2=data[0][3]
+        p_3=data[0][4]
+        p_4=data[0][5]
+        
+        suma = int((p_1 + p_2 + p_3 + p_4)/3)
+        
+        print(suma)
+        
+        self.progress_bar.set(0)
+        for i in range (suma):
             self.progress_bar.step()
+        conexion.close()
     
     
     def center_window(self, window, width , height):
@@ -106,6 +133,10 @@ class Modules:
         inter = Netmodule(self.root, self.username)
         self.center_window(inter.inter, 880, 600)
 
+    def go_reports(self):
+        self.root.withdraw()
+        reports = Reports(self.root)
+        self.center_window(reports.app, 880, 600)
 
     #*################ WIDGETS ################
     def widgets(self):
@@ -125,7 +156,7 @@ class Modules:
             text_color="white",
             corner_radius=40
         )
-        title_label.pack(pady=(30,20))
+        title_label.pack(pady=(30,5))
         
         #$############# FRAME 1 ##################
         frame_1 = CTkFrame(
@@ -133,7 +164,7 @@ class Modules:
             fg_color=self.primary_color,
             bg_color=self.primary_color,
         )
-        frame_1.pack(fill = 'x', pady=(10,0), expand=True)
+        frame_1.pack(fill = 'x', pady=(20,0))
         
         
         module_1 = CTkButton(
@@ -151,7 +182,7 @@ class Modules:
             compound="left",
             anchor="w"
         )
-        module_1.pack(pady=15, side="left", padx=30)
+        module_1.pack(pady=(10,5), side="left", padx=30)
         
         module_2 = CTkButton(
             frame_1,
@@ -166,7 +197,7 @@ class Modules:
             image=calendario_image,
             command=self.go_event,
         )
-        module_2.pack(pady=15, side="right", padx=30)
+        module_2.pack(pady=(10,5), side="right", padx=30)
         
         #$############# FRAME 2 ################
         frame_2 = CTkFrame(
@@ -174,7 +205,7 @@ class Modules:
             fg_color=self.primary_color,
             bg_color=self.primary_color,
         )
-        frame_2.pack(fill = 'x', pady=(0,15), expand=True)
+        frame_2.pack(fill = 'x', pady=(20,15))
         
         module_3 = CTkButton(
             frame_2,
@@ -189,7 +220,7 @@ class Modules:
             image=parque_image,
             command=self.go_calle,
         )
-        module_3.pack(pady=15, side="left", padx=30)
+        module_3.pack(pady=0, side="left", padx=30)
         
         module_4 = CTkButton(
             frame_2,
@@ -204,7 +235,7 @@ class Modules:
             image=digital_image,
             command=self.go_net,
         )
-        module_4.pack(pady=(15,5), side="right", padx=30)
+        module_4.pack(pady=0, side="right", padx=30)
         
         #$############### PROGRESS BAR ############
         title_bar = CTkLabel(
@@ -215,14 +246,14 @@ class Modules:
             text_color="white",
             bg_color=self.primary_color,
         )
-        title_bar.pack(pady=(20,10))
+        title_bar.pack(pady=(10,0))
         
         progress_frame = CTkFrame(
             self.root,
             fg_color=self.primary_color,
             bg_color=self.primary_color
         )
-        progress_frame.pack(pady=(0,20))
+        progress_frame.pack(pady=(0,10))
         
         self.progress_bar = CTkProgressBar(
             progress_frame,
@@ -235,7 +266,7 @@ class Modules:
             fg_color="#FFFFFF",
             determinate_speed=6.25,
         )
-        self.progress_bar.pack(pady=(0,20), side="left")
+        self.progress_bar.pack(pady=(0,10), side="left")
         self.progress_bar.set(0)
         
         refresh_button = CTkButton(
@@ -247,7 +278,19 @@ class Modules:
             text_color="white",
             command=self.update_progress,
         )
-        refresh_button.pack(side="right")
+        refresh_button.pack(side="right", pady=(0,10))
+        
+        reports_button = CTkButton(
+            self.root,
+            text="Ir al centro de Reportes",
+            font=("Arial", 25),
+            width=300,
+            height=50,
+            command=lambda: Reports(self.root),
+            corner_radius=20,
+            bg_color=self.primary_color,
+        )
+        reports_button.pack(pady=(0,0))
         
         for i in range (self.get_points()):
             self.progress_bar.step()
