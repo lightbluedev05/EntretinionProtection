@@ -67,7 +67,7 @@ class TransportModule:
     
 #*#-----------------------------------------------------------------------------------------------------------------------
 
-    def mostrar_level(self, enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, a, b, c , d):
+    def mostrar_level(self, enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, nivel_actual, a, b, c):
         # Asignar valores para el nivel 1
         self.enunciado = enunciado
         self.opcion1 = opcion1
@@ -76,13 +76,10 @@ class TransportModule:
         self.consejo2 = consejo2
         self.opcion3 = opcion3
         self.consejo3 = consejo3
-        self.opcion4 = opcion4
-        self.consejo4 = consejo4
         self.nivel_actual = nivel_actual
         self.a = a
         self.b = b
         self.c = c
-        self.d = d
         
         # Limpiar el frame derecho
         for widget in self.frame_derecho.winfo_children():
@@ -99,7 +96,7 @@ class TransportModule:
                             text=self.enunciado,
                             bg_color="#9bb1ff",
                             text_color="white",
-                            font=("Arial", 24),
+                            font=("Arial", 20),
                             wraplength=530,
                             justify="center",
                             )
@@ -117,7 +114,7 @@ class TransportModule:
                             width=280,
                             height=130,
                             anchor="center",
-                            command=lambda: self.actualizar_label(self.consejo1, a, b , c, d),
+                            command=lambda: self.actualizar_label(self.consejo1, a, b , c),
                             border_color="white",
                             border_width=3,
                             hover_color="#B8F25D")
@@ -132,14 +129,14 @@ class TransportModule:
                             width=280,
                             height=130,
                             anchor="center",
-                            command=lambda: self.actualizar_label(self.consejo2, a, b, c, d),
+                            command=lambda: self.actualizar_label(self.consejo2, a, b, c),
                             border_color="white",
                             border_width=3,
                             hover_color="#B8F25D")
         self.boton_b.pack(side="right", padx=15)
         
         frame3 = CTkFrame(self.frame_derecho, fg_color=self.primary_color)
-        frame3.pack(fill="x", pady=30)
+        frame3.pack(fill="x", pady=5)
 
         self.boton_c = CTkButton(frame3,
                             text=self.opcion3,
@@ -150,26 +147,11 @@ class TransportModule:
                             width=280,
                             height=130,
                             anchor="center",
-                            command=lambda: self.actualizar_label(self.consejo3, a, b, c, d),
+                            command=lambda: self.actualizar_label(self.consejo3, a, b, c),
                             border_color="white",
                             border_width=3,
                             hover_color="#B8F25D")
-        self.boton_c.pack(side="left", padx=(15,0))
-
-        self.boton_d = CTkButton(frame3,
-                            text=self.opcion4,
-                            bg_color=self.primary_color,
-                            fg_color=self.primary_color,
-                            text_color="black",
-                            font=("Arial", 18),
-                            width=280,
-                            height=130,
-                            anchor="center",
-                            command=lambda: self.actualizar_label(self.consejo4, a, b, c, d),
-                            border_color="white",
-                            border_width=3,
-                            hover_color="#B8F25D")
-        self.boton_d.pack(side="right", padx=15)
+        self.boton_c.pack(padx=15)
 
         frame4 = CTkFrame(self.frame_derecho, fg_color=self.primary_color)
         frame4.pack(fill="x", side="bottom")
@@ -177,10 +159,11 @@ class TransportModule:
         self.label_texto = CTkLabel(frame4,
                                     text="",
                                     bg_color=self.primary_color,
-                                    text_color="white",
+                                    text_color="black",
                                     font=("Arial", 20),
-                                    height=100)
-        self.label_texto.pack(fill="x", side="bottom")
+                                    height=100,
+                                    wraplength=610)
+        self.label_texto.pack(fill="x", side="bottom", pady=5)
 
     def actualizar_label(self, texto, *botones):
         
@@ -227,88 +210,76 @@ class TransportModule:
 
 #*#-----------------------------------------------------------------------------------------------------------------------
     def mostrar_level_1(self):
-        enunciado = "Quedaste con un amigo en su casa, pero se te pasó la hora y ya es de noche. Tienes algo urgente que hacer en tu casa, así que tienes que volver rápido. ¿Qué ruta tomarías para llevar a cabo esta tarea de la forma más segura posible?"
-        opcion1 = "Tomaré un taxi\npara llegar a mi destino"
-        consejo1 = "1"
-        opcion2 = "Caminaré hasta la parada\nde buses más cercana"
-        consejo2 = "2"
-        opcion3 = "Le pediré a mi amigo que\nme acompañe hasta un lugar\nseguro donde pueda tomar un\ncolectivo"
-        consejo3 = "3"
-        opcion4 = "Usaré una aplicación de\ntaxi para que me\nlleve hasta mi casa"
-        consejo4 = "4"
+        enunciado = "Imagina que estás en un largo viaje en autobús o tren, rodeado de otros pasajeros. De repente, un individuo armado entra en el vehículo y se dirige hacia ti, exigiendo tus pertenencias. ¿Qué acciones tomarías en este momento para protegerte a ti mismo y a los demás pasajeros del peligro?"
+        opcion1 = "Entregar tus pertenencias,\ny automaticamente avisar\nal conductor de cerrar\nlas puertas"
+        consejo1 = "Si has optado por esta respuesta, dejame decirte que parece ser una buena opción al entregar tus pertenencias sin ejercer presión, pero debemos percatarnos que al estar armado, el podría alterar contra la vida no solo tuya , sino del conductor y los civiles que se encuentran en el bus."
+        opcion2 = "Mantener la calma y entregar\ntus pertenencias y esperar\nque nadie este en peligro\npara avisar de que\nel ladrón tiene un arma"
+        consejo2 = "Exacto,es importante mantener la calma en ese momento y ceder ante cualquier robo a mano armada, una vez que el atraco haya terminado y el agresor ya no represente una amenaza inmediata, busca la oportunidad de comunicar discretamente al conductor la situación"
+        opcion3 = "Resistir al atraco y gritar\nque te estan robando "
+        consejo3 = "Si te encuentras en esta situación, es crucial que priorices tu seguridad y la de los demás pasajeros. No intentes resistir al atraco si el agresor está armado, ya que esto puede poner en peligro tu vida y la de los demás."
         nivel_actual = 1
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, nivel_actual, 1, 0, 2)
         
     def mostrar_level_2(self):
-        enunciado = "Estás caminando por la calle cuando presencias un robo ocurriendo a poco menos de una cuadra de ti, estando tan cerca, ¿Qué deberías hacer?"
-        opcion1 = "Lo ignoraré y me\nalejaré del lugar."
-        consejo1 = "1"
-        opcion2 = "Trataré de ayudar."
-        consejo2 = "1"
-        opcion3 = "Gritaré por ayuda,\npero me mantendré\nlejos."
-        consejo3 = "1"
-        opcion4 = "Llamaré a la\npolicía/serenazgo, quizá\nellos puedan hacer algo."
-        consejo4 = "1"
+        enunciado = "Imagina que estás en un autobús lleno de gente, viajando hacia tu destino. De repente, notas que alguien cerca de ti comienza a acosarte verbal o físicamente. Te sientes incómodo y alarmado por la situación. ¿Qué acciones tomarías en este momento para protegerte a ti mismo y enfrentar esta situación de acoso en el transporte público?"
+        opcion1 = "Ignorar al acosador\ny cambiar de asiento\nsi es posible."
+        consejo1 = "Si bien cambiar de asiento puede ayudarte a alejarte físicamente del acosador, simplemente ignorarlo puede no resolver el problema subyacente. Ignorar el acoso puede dar la impresión al acosador de que su comportamiento es aceptable o que no está teniendo un impacto negativo en ti o en otros pasajeros"
+        opcion2 = "Reportar el incidente\nal llegar a tu\ndestino."
+        consejo2 = "Parece una buena alternativa, pero al tener poquisima información del acosador, probablemente no podrías llegar a nada"
+        opcion3 = "Confrontar  al acosador\ny establecer límites claros\nsobre tu espacio personal."
+        consejo3 = "Excelente elección. Confrontar al acosador de manera educada pero firme es una forma efectiva de hacerle saber que su comportamiento no es aceptable y establecer límites claros para proteger tu espacio personal	Al enfrentarlo de esta manera, estás defendiendo tus derechos y promoviendo un ambiente de respeto en el transporte público."
         nivel_actual = 2
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 1, 0, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, nivel_actual, 1, 0, 2)
 
     def mostrar_level_3(self):
-        enunciado = "Es de día, pero te percatas de un pequeño grupo de personas que parece seguirte en tu recorrido ¿Qué harás?"
-        opcion1 = "Tomar un bus/colectivo/taxi\npara perderlos."
-        consejo1 = "1"
-        opcion2 = "Seguir caminando normalmente\n, es de día,\nno puede pasar nada malo."
-        consejo2 = "1"
-        opcion3 = "Caminar hasta una\nzona más segura\n(parque, comisaría, etc)."
-        consejo3 = "1"
-        opcion4 = "Darte la vuelta\ny confrontarlos."
-        consejo4 = "1"
+        enunciado = " Imagina que estás en un autobús lleno de gente cuando de repente dos pasajeros comienzan a discutir acaloradamente por un asiento. La situación escalada rápidamente y ahora están empujándose y gritándose mutuamente."
+        opcion1 = "Llamar a la policía"
+        consejo1 = "Esta es una acción crucial y totalmente correcta en situaciones de pelea o violencia en el transporte público. Llamar a la policía puede garantizar una intervención rápida y profesional para resolver la situación de manera segura y legal."
+        opcion2 = "Tratar de calmar la\nsituación mediando entre\nlas partes"
+        consejo2 = "Si bien intentar calmar la situación puede ser noble, también puede ser arriesgado y potencialmente peligroso si no estás entrenado para manejar conflictos. Es mejor dejar la mediación a profesionales capacitados, como el personal del transporte o las autoridades, para garantizar que la situación se resuelva de manera segura y efectiva"
+        opcion3 = "Grabar la situación\ny reportarla a redes"
+        consejo3 = "Grabar la situación puede proporcionar evidencia útil para las autoridades y ayudar a identificar a los responsables. Sin embargo, es importante priorizar la seguridad personal y buscar ayuda profesional en lugar de depender únicamente de las redes sociales para resolver la situación."
         nivel_actual = 3
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, nivel_actual, 0, 1, 2)
 
     def mostrar_level_4(self):
-        enunciado = "Caminaste por un callejón y ahora te están robando, tienes pertenencias valiosas en tu mochila que no quieres perder, pero la situación es difícil para ti en este momento. ¿Qué harás?"
-        opcion1 = "Gritar y pedir por\nayuda a cualquier persona cerca."
-        consejo1 = "1"
-        opcion2 = "Tratar de huir lo\nmás rápido que puedas."
-        consejo2 = "1"
-        opcion3 = "Entregar todo lo que\ntengas por temor a algún\nacto de mayor violencia."
-        consejo3 = "1"
-        opcion4 = "Tratar de defenderte del robo."
-        consejo4 = "1"
+        enunciado = "Imagina que estás viajando en un taxi cuando el conductor cambia repentinamente de ruta y se desvía hacia un área poco transitada. Comienzas a sentirte incómodo/a y sospechas que el conductor pueda tener intenciones maliciosas."
+        opcion1 = "Pedirle al conductor que\nte lleve de vuelta\nal punto de origen y\nsalir del taxi en\ncuanto sea posible:"
+        consejo1 = "Pedirle al conductor que te lleve de vuelta al punto de origen y salir del taxi en cuanto sea posible: Es importante mantener la calma y tratar de no mostrar signos de pánico mientras solicitas al conductor que regrese al punto de origen."
+        opcion2 = "Llamar a la policía y\nproporcionarles la ubicación\nactual del taxi y cualquier\ndetalle relevante sobre\nel conductor."
+        consejo2 = "Llamar a la policía y proporcionarles la ubicación actual del taxi y cualquier detalle relevante sobre el conductor. Llamar a las autoridades es una medida crucial para obtener ayuda profesional y garantizar una intervención rápida y efectiva para resolver la situación de manera segura."
+        opcion3 = "Intentar luchar contra\nel conductor y escapar\ndel taxi por cualquier\nmedio necesario."
+        consejo3 = "Intentar luchar contra el conductor y escapar del taxi por cualquier medio necesario. Esta respuesta aumentaría el riesgo de violencia y daño físico tanto para ti como para el conductor, y podría empeorar la situación."
         nivel_actual = 4
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, nivel_actual, 0, 1, 2)
 
     def mostrar_level_5(self):
-        enunciado = "Caminando por una calle, una persona, aparentemente ambulante, se acerca a ti insistiéndote en que le compres algo, tratas de ignorarlo, pero el individuo acelera su paso y ahora te insulta, ¿Qué harás?"
-        opcion1 = "Seguir ignorándolo esperando\nque pronto se cansará."
-        consejo1 = "1"
-        opcion2 = "Confrontarlo e insultarlo\ndevuelta."
-        consejo2 = "1"
-        opcion3 = "Acelerar el paso y tratar\nde ir a un lugar más seguro o\ncon más gente."
-        consejo3 = "1"
-        opcion4 = "Amenazarlo con llamar\nal serenazgo/policía."
-        consejo4 = "1"
+        enunciado = " Estás en un autobús urbano cuando un grupo de individuos armados aborda el vehículo y comienza a exigir dinero y pertenencias a los pasajeros. La situación se vuelve cada vez más tensa y temes por tu seguridad y la de los demás pasajeros."
+        opcion1 = "Esperar pasivamente a que\nla situación se resuelva\npor sí sola."
+        consejo1 = "Si decides esperar pasivamente, asegúrate de mantenerte alerta y observar cuidadosamente la situación en busca de cualquier cambio o desarrollo. Utiliza este tiempo para evaluar tus opciones y prepararte para tomar medidas si la situación empeora. Por ejemplo, identifica salidas de emergencia o posibles rutas de escape en caso de ser necesario."
+        opcion2 = "Llamar a la policía o emergencias\ny proporcionarles la ubicación\nactual del autobús y\ncualquier detalle relevante\nsobre los secuestradores."
+        consejo2 = "Llamar a las autoridades es crucial en situaciones de secuestro, ya que pueden proporcionar ayuda profesional y coordinar una respuesta adecuada para garantizar la seguridad de los pasajeros y resolver la situación de manera segura."
+        opcion3 = "Tratar de resistir físicamente\ny luchar contra los\nsecuestradores para escapar\ndel autobús."
+        consejo3 = "Esta acción aumentaría significativamente el riesgo de violencia y podría poner en peligro la seguridad tanto de los pasajeros como de los secuestradores."
         nivel_actual = 5
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, nivel_actual, 0, 1, 2)
 
     def mostrar_level_6(self):  
-        enunciado = "Mientras volvías a tu casa, una persona te para y te pide que le digas que hora es, para tu mala suerte, no sabes que hora es tampoco, y la única forma de hacerlo sería sacando tu celular para comprobarlo, pero, ante esta situación, ¿Qué harías?"
-        opcion1 = "Mentir con una hora falsa."
-        consejo1 = "1"
-        opcion2 = "Acceder al pedido y\ndarle la hora correcta\n(sacar tu celular para ello)."
-        consejo2 = "1"
-        opcion3 = "Tratar de persuadirlo\npara que te deje ir."
-        consejo3 = "1"
-        opcion4 = "Ignorarlo y seguir\ncon tu camino."
-        consejo4 = "1"
+        enunciado = "Has solicitado un viaje en Uber y, durante el trayecto, el conductor detiene el vehículo en un lugar aislado y exige que entregues todas tus pertenencias."
+        opcion1 = "Esperar  a que la\nsituación se resuelva\npor sí sola."
+        consejo1 = "Recuerda que la pasividad puede no ser la mejor opción en situaciones de peligro. Siempre es recomendable buscar ayuda profesional y contactar a las autoridades lo antes posible."
+        opcion2 = "Llamar a la policía y\nproporcionarles la ubicación\nactual del autobús y\ncualquier detalle relevante\nsobre los secuestradores"
+        consejo2 = "Llamar a las autoridades de inmediato es la acción más adecuada en situaciones de secuestro. Proporciona a la policía toda la información disponible, incluida la ubicación del autobús y cualquier detalle relevante sobre los secuestradores."
+        opcion3 = "Tratar de resistir\nfísicamente y luchar contra\nlos secuestradores para escapar\ndel autobús."
+        consejo3 = "Resistir físicamente puede aumentar el riesgo de violencia y poner en peligro la seguridad de los pasajeros	 Es mejor evitar cualquier confrontación directa y buscar ayuda profesional llamando a la policía"
         nivel_actual = 6
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, nivel_actual, 0, 1, 2)
 
         
     def widgets(self):
@@ -328,7 +299,7 @@ class TransportModule:
         frame_izquierdo.pack(side="left", fill="y")
         frame_izquierdo.pack_propagate(False)
         
-        imagen_autobus = CTkImage(Image.open(os.path.join(carpeta_imagenes, "digital.png")), size=(150, 130))
+        imagen_autobus = CTkImage(Image.open(os.path.join(carpeta_imagenes, "autobus.png")), size=(150, 130))
         label_autobus = CTkLabel(frame_izquierdo, image=imagen_autobus , text="", bg_color=self.third_color)
         label_autobus.pack(pady=(15,10), padx=5)
         

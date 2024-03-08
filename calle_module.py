@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 #.
 class CalleModule:
-    def __init__(self, ventana,username):
+    def __init__(self, ventana, username):
         self.ventana = ventana
         self.call = CTkToplevel(self.ventana)
         self.call.title("App")
@@ -99,7 +99,7 @@ class CalleModule:
                             text=self.enunciado,
                             bg_color="#9bb1ff",
                             text_color="white",
-                            font=("Arial", 24),
+                            font=("Arial", 20),
                             wraplength=530,
                             justify="center",
                             )
@@ -139,7 +139,7 @@ class CalleModule:
         self.boton_b.pack(side="right", padx=15)
         
         frame3 = CTkFrame(self.frame_derecho, fg_color=self.primary_color)
-        frame3.pack(fill="x", pady=30)
+        frame3.pack(fill="x", pady=5)
 
         self.boton_c = CTkButton(frame3,
                             text=self.opcion3,
@@ -177,10 +177,11 @@ class CalleModule:
         self.label_texto = CTkLabel(frame4,
                                     text="",
                                     bg_color=self.primary_color,
-                                    text_color="white",
+                                    text_color="black",
                                     font=("Arial", 20),
-                                    height=100)
-        self.label_texto.pack(fill="x", side="bottom")
+                                    height=100,
+                                    wraplength=610)
+        self.label_texto.pack(fill="x", side="bottom", pady=5)
 
     def actualizar_label(self, texto, *botones):
         
@@ -229,86 +230,86 @@ class CalleModule:
     def mostrar_level_1(self):
         enunciado = "Quedaste con un amigo en su casa, pero se te pasó la hora y ya es de noche. Tienes algo urgente que hacer en tu casa, así que tienes que volver rápido. ¿Qué ruta tomarías para llevar a cabo esta tarea de la forma más segura posible?"
         opcion1 = "Tomaré un taxi\npara llegar a mi destino"
-        consejo1 = "1"
+        consejo1 = "Una buena idea, aunque solo de día, de noche algun taxi falso puede ser el que toque."
         opcion2 = "Caminaré hasta la parada\nde buses más cercana"
-        consejo2 = "2"
+        consejo2 = "Es muy arriesgado, ¿No?, ni a menos que estes completamente seguro que nada te pasara esto podría ser algo recomendable."
         opcion3 = "Le pediré a mi amigo que\nme acompañe hasta un lugar\nseguro donde pueda tomar un\ncolectivo"
-        consejo3 = "3"
+        consejo3 = "Buena idea, aunque expones a tu amigo al peligro si eliges esta opción, ya que el tendrá que volver solo."
         opcion4 = "Usaré una aplicación de\ntaxi para que me\nlleve hasta mi casa"
-        consejo4 = "4"
+        consejo4 = "Estas aplicaciones suelen estar más reguladas, así que hay menos chance de que algo ocurra, sin embargo, nunca bajes la guardia."
         nivel_actual = 1
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 1, 2, 1, 0)
         
     def mostrar_level_2(self):
         enunciado = "Estás caminando por la calle cuando presencias un robo ocurriendo a poco menos de una cuadra de ti, estando tan cerca, ¿Qué deberías hacer?"
         opcion1 = "Lo ignoraré y me\nalejaré del lugar."
-        consejo1 = "1"
+        consejo1 = "Es algo inteligente sin lugar a dudas, aunque dejar un acto así ignorado quiza no sea la mejor opción."
         opcion2 = "Trataré de ayudar."
-        consejo2 = "1"
+        consejo2 = "Te estas exponiendo a mucho riesgo, no sabes is hay complices esperando, asi que mejor sería no acercarte."
         opcion3 = "Gritaré por ayuda,\npero me mantendré\nlejos."
-        consejo3 = "1"
+        consejo3 = "Puede funcionar, pero depende mucho de la zona, aparte, incluso estando lejos, llamando la atención de esta forma, puedes correr riesgos."
         opcion4 = "Llamaré a la\npolicía/serenazgo, quizá\nellos puedan hacer algo."
-        consejo4 = "1"
+        consejo4 = "Aunque no lo parezca, esto puede ayudar mucho, si bien el crimen no será detenido al momento, la policía tendra en sus registros este hecho, para poder detener al criminal luego."
         nivel_actual = 2
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 1, 0, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 1, 2, 1, 0)
 
     def mostrar_level_3(self):
         enunciado = "Es de día, pero te percatas de un pequeño grupo de personas que parece seguirte en tu recorrido ¿Qué harás?"
         opcion1 = "Tomar un bus/colectivo/taxi\npara perderlos."
-        consejo1 = "1"
+        consejo1 = "Si estamos hablando de un grupo de personas con malas intenciones, tomar un bus/colectivo no los perderá tan facilmente."
         opcion2 = "Seguir caminando normalmente\n, es de día,\nno puede pasar nada malo."
-        consejo2 = "1"
+        consejo2 = "Estas siendo desprevenido, a pesar de que sea de día, hay zonas en las que tu camino te puede llevar a ser asaltado."
         opcion3 = "Caminar hasta una\nzona más segura\n(parque, comisaría, etc)."
-        consejo3 = "1"
+        consejo3 = "Una de las mejores opciones claramente, el grupo de personas no te seguira hasta un lugar donde ellos se volverían vulnerables."
         opcion4 = "Darte la vuelta\ny confrontarlos."
-        consejo4 = "1"
+        consejo4 = "Llamarás innecesariamente la atención, y aparte, peudes meterte en problemas por causar un escándalo en público."
         nivel_actual = 3
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 1, 2, 0, 2)
 
     def mostrar_level_4(self):
         enunciado = "Caminaste por un callejón y ahora te están robando, tienes pertenencias valiosas en tu mochila que no quieres perder, pero la situación es difícil para ti en este momento. ¿Qué harás?"
         opcion1 = "Gritar y pedir por\nayuda a cualquier persona cerca."
-        consejo1 = "1"
+        consejo1 = "Incluso si funciona, hasta que la ayuda llegue, los ladrones pueden ejercer violencia sobre tí, lo cual no es bueno."
         opcion2 = "Tratar de huir lo\nmás rápido que puedas."
-        consejo2 = "1"
+        consejo2 = "Podría funcionar, pero no sabes si tienen complices viendo desde lejos, lo cual solo agravaría tu situación aún más."
         opcion3 = "Entregar todo lo que\ntengas por temor a algún\nacto de mayor violencia."
-        consejo3 = "1"
+        consejo3 = "Lamentablemente, es la opción más inteligente, lo material es temporal, pero es mejor preservar tu vida/salud que bienes materiales."
         opcion4 = "Tratar de defenderte del robo."
-        consejo4 = "1"
+        consejo4 = "Probablemente no salga bien, y aparte te expondras a más peligro combinado con violencia innecesaria."
         nivel_actual = 4
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 1, 2, 0, 2)
 
     def mostrar_level_5(self):
         enunciado = "Caminando por una calle, una persona, aparentemente ambulante, se acerca a ti insistiéndote en que le compres algo, tratas de ignorarlo, pero el individuo acelera su paso y ahora te insulta, ¿Qué harás?"
         opcion1 = "Seguir ignorándolo esperando\nque pronto se cansará."
-        consejo1 = "1"
+        consejo1 = "No sabes como la otra persona reaccionará, pero quizá sea inteligente actuar de esa manera, estando en público es improbable que algo mayor suceda."
         opcion2 = "Confrontarlo e insultarlo\ndevuelta."
-        consejo2 = "1"
+        consejo2 = "La otra persona puede reaccionar de una forma más violenta, así que mejor evitar esto."
         opcion3 = "Acelerar el paso y tratar\nde ir a un lugar más seguro o\ncon más gente."
-        consejo3 = "1"
+        consejo3 = "Una opción muy inteligente, asegurandote de que la persona se sienta presionada por el público evitara que la persona haga algo."
         opcion4 = "Amenazarlo con llamar\nal serenazgo/policía."
-        consejo4 = "1"
+        consejo4 = "Podrías provocarlo innecesariamente, y eso puede acabar de una forma terrible."
         nivel_actual = 5
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 1, 2, 0, 2)
 
     def mostrar_level_6(self):  
         enunciado = "Mientras volvías a tu casa, una persona te para y te pide que le digas que hora es, para tu mala suerte, no sabes que hora es tampoco, y la única forma de hacerlo sería sacando tu celular para comprobarlo, pero, ante esta situación, ¿Qué harías?"
         opcion1 = "Mentir con una hora falsa."
-        consejo1 = "1"
+        consejo1 = "Es una buena forma de evitar que te sigan con su intento, aunque quiza debas planear una ruta de escape en caso vuelvan por más."
         opcion2 = "Acceder al pedido y\ndarle la hora correcta\n(sacar tu celular para ello)."
-        consejo2 = "1"
+        consejo2 = "Es muy arriesgado, podrías sufrir un robo en este punto si las personas que te hacen las preguntas son realmente ladrones."
         opcion3 = "Tratar de persuadirlo\npara que te deje ir."
-        consejo3 = "1"
+        consejo3 = "Depende mucho de qué tanto puedas persuadirlos, aunque mantener una conversación con ellos quiza no sea una buena idea."
         opcion4 = "Ignorarlo y seguir\ncon tu camino."
-        consejo4 = "1"
+        consejo4 = "Puedes provocarlos de este modo, aunque es una buena forma de evitarlos."
         nivel_actual = 6
         
-        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 1, 2, 0)
+        self.mostrar_level(enunciado, opcion1, consejo1, opcion2, consejo2, opcion3, consejo3, opcion4, consejo4, nivel_actual, 0, 2, 1, 1)
 
         
     def widgets(self):
